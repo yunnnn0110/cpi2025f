@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1900">
+  <title>chapter 2</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css"><!--edit-->
+  <!-- Pollyfill script -->
+  <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+  <!-- Live2DCubismCore script -->
+  <script src="./dist/live2dcubismcore.js"></script>
+  <!-- Build script -->
+  <script src="./dist/bundle.js"></script>
+  <style>
+    ul, ol{
+      list-style: none;
+      margin-left: 0;
+    }
+    .reveal {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    #pageIndex{
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+      background: #000;
+      color: #fff;
+      font-size: 26px;
+    }
+    .controls{
+      bottom: 24px !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!--
+         data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+         data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+         data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+         data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+         data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+      -->
+
+      <!--Q1-->
+      <section
+      data-no="6" 
+      data-positionx="0.6" 
+      data-positiony="0.05" 
+      data-scale="1" 
+      data-motionno="0">
+        <h3 style="text-align: left;">Chapter 2_project 3</h3>
+        <p>Modify the program of Programming Project 2 so that it prompts the user to enter the radius of the sphere.
+        </p>
+        <h4 style="text-align: left;">Project2:</h4>
+        <p>Write a program that computes the volume of a sphere with a 10-meter radius, using the formula v=4/3*PI*r3.Write the fraction 4/3 as 4.0f/3.0f.</p>
+      </section>
+      <section
+      data-no="17" 
+      data-positionx="0.6" 
+      data-positiony="0.05" 
+      data-scale="1" 
+      data-motionno="0">
+      <h3>answer</h3>
+      <section data-auto-animate>
+        <pre><code data-trim data-noescape>
+          #include&lt;stdio.h&gt;
+            
+          int main(void){
+            float money = 0.0f;
+            printf("Enter an amount: ");
+            ___YOUR_CODE_HERE___
+            printf("With tax added: $%.2f\n", money * 1.05f);
+  
+            return 0;
+          }
+        </code></pre> 
+      </section>        
+      <section data-auto-animate>
+        <pre><code data-trim data-noescape>
+          #include&lt;stdio.h&gt;
+            
+          int main(void){
+            float money = 0.0f;
+            printf("Enter an amount: ");
+            scanf("%f", &money);
+            printf("With tax added: $%.2f\n", money * 1.05f);
+
+            return 0;
+          }
+        </code></pre>
+      </section>
+      </section>
+    </div>
+  </div>
+  <div id="pageIndex"></div>
+  <!-- reveal.js-->
+  <script src="vendor/reveal/reveal.js"></script>
+  <!--plugin-->
+  <script src="vendor/reveal/plugin/math/math.js"></script>
+  <script src="vendor/reveal/plugin/search/search.js"></script>
+  <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+  <script src="vendor/reveal/plugin/notes/notes.js"></script>
+  <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+  <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+  <script src="main-ppt.js"></script>
+</body>
+
+</html>
