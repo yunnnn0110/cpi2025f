@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1900">
+  <title>o-6
+  </title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+  <link rel="stylesheet" href="vendor/reveal/reset.css">
+  <link rel="stylesheet" href="vendor/reveal/reveal.css">
+  <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+  <!--edit-->
+  <!-- Pollyfill script -->
+  <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+  <!-- Live2DCubismCore script -->
+  <script src="./dist/live2dcubismcore.js"></script>
+  <!-- Build script -->
+  <script src="./dist/bundle.js"></script>
+  <style>
+    ul,
+    ol {
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .reveal {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 26px;
+    }
+
+    #pageIndex {
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+      background: #000;
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .controls {
+      bottom: 24px !important;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+      <section>
+        <h3>6. 一元二次方程式</h3>
+        <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+          style="text-align: left"><br>
+          <br>&emsp;&emsp;一元二次方程式，aX^2 + bx + c = 0，輸入a, b, c, 求方程式的兩個實/虛根。<br>
+          &emsp;&emsp;&emsp;&emsp;T = math.sqrt(b*b-4*a*c)<br>
+          <br>&emsp;&emsp;&emsp;&emsp;第一個根，x1 = (-b+T)/(2*a)<br>
+          &emsp;&emsp;&emsp;&emsp;第二個根，x2= (-b-T)/(2*a)<br>
+          <br>&emsp;&emsp;&emsp;&emsp;本題需 import math<br>
+        </section>
+      </section>
+
+      <section>
+        <h3>輸入輸出說明</h3>
+        <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+          style="text-align: left"><br>
+          &emsp;&emsp;輸入說明<br>
+          &emsp;&emsp;&emsp;&emsp;第一行，輸入a (Integer)<br>
+          &emsp;&emsp;&emsp;&emsp;第二行，輸入b (Integer)<br>
+          &emsp;&emsp;&emsp;&emsp;第三行，輸入c (Integer)<br><br>
+          &emsp;&emsp;輸出說明<br>
+          &emsp;&emsp;&emsp;&emsp;1.當T>=0，輸出x1, x2為實根，輸出到小數點第一位<br>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;第一行，輸出 print("%.1f” %(x1))<br>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;第二行，輸出 print("%.1f” %(x2))<br>
+          &emsp;&emsp;&emsp;&emsp;2.當T<0，輸出x1 , x2為虛根，輸出到小數點第一位<br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;第一行，輸出 print("%.1f+%.1fi" %(x11,x12))<br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;第二行，輸出 print("%.1f-%.1fi" %(x21,x22))
+        </section>
+      </section>
+
+      <section>
+        <h3>一元二次方程式 輸入輸出範例</h3>
+        <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+          style="text-align: left">
+          <table style="background-color: #fff; width: 50%;">
+            <tr>
+              <th>Input</th>
+              <th>Output</th>
+            </tr>
+            <tr>
+              <td>
+                1<br>-2<br>1
+              </td>
+              <td>
+                1.0<br>1.0
+              </td>
+            </tr>
+            <tr>
+              <td>
+                1<br>2<br>2
+              </td>
+              <td>
+                -1.0+1.0i<br>-1.0-1.0i
+              </td>
+            </tr>
+            <tr>
+              <td>
+                2<br>0<br>2
+              </td>
+              <td>
+                0.0+1.0i<br>0.0-1.0i
+              </td>
+            </tr>
+          </table>
+
+        </section>
+      </section>
+
+      <section>
+        <h3>Tips</h3>
+        <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+          style="text-align: left"><br><br>
+          &emsp;&emsp;設定一個bool變數<br>
+          &emsp;&emsp;來判斷是否為實根還虛根<br>
+          &emsp;&emsp;再根據實根還虛根去做計算
+          <section data-auto-animate>
+            <pre><code data-trim data-noescape>
+                              def func(a,b,c):
+                                is_virtual = False
+                                # 計算T
+                                # 判斷T是否&lt;0
+                                # 根據T來設定is_virtual
+                                #
+                                # code
+                                #
+                                print(format(bmi, '.2f'))
+                            </code></pre>
+          </section>
+        </section>
+      </section>
+      </section>
+
+      <section>
+        <h3>解答</h3>
+        <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+          style="text-align: left"><br><br>
+          &emsp;&emsp;設定好main函式和輸入<br>
+          <section data-auto-animate>
+            <pre><code data-trim data-noescape data-line-numbers="|1-1|26-29|2-6|8-10|13-17|18-22|">
+                      import math
+                      def func(a,b,c):
+
+                          is_virtual = False
+
+                          result = b*b-4*a*c
+
+                          if(result < 0):
+                              is_virtual = True
+                              result = result * (-1)
+
+
+                          if(is_virtual):
+                              x_real = -b / (2*a)
+                              x_virtual = math.sqrt(result)/(2*a)
+                              print("%.1f+%.1fi" %(x_real,x_virtual))
+                              print("%.1f-%.1fi" % (x_real, x_virtual))
+                          else:
+                              x_ans1 = (-b+math.sqrt(result))/(2*a)
+                              x_ans2 = (-b-math.sqrt(result))/(2*a)
+                              print("%.1f"%(x_ans1))
+                              print("%.1f"%(x_ans2))
+
+
+
+                      a = int(input())
+                      b = int(input())
+                      c = int(input())
+                      func(a, b, c)
+                    </code></pre>
+          </section>
+        </section>
+      </section>
+    </div>
+  </div>
+  <div id="pageIndex"></div>
+  <!-- reveal.js-->
+  <script src="vendor/reveal/reveal.js"></script>
+  <!--plugin-->
+  <script src="vendor/reveal/plugin/math/math.js"></script>
+  <script src="vendor/reveal/plugin/search/search.js"></script>
+  <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+  <script src="vendor/reveal/plugin/notes/notes.js"></script>
+  <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+  <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+  <script src="main-ppt.js"></script>
+</body>
+
+</html>

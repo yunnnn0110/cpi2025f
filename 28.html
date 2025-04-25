@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-28
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+        table, th, td {
+            border:1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>28. 字串操作</h3>
+                <section 
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>輸入兩個英文句子A, B,以及兩個英文單字 X, Y，操作步驟如下:<br>
+                    &emsp;&emsp;1. 將兩個英文句子A, B串聯成句子 C （A和B兩個句子串聯時，中間用空白隔開），並輸出C<br>
+                    &emsp;&emsp;2. 將句子C中的單字X替換成Y變成句子D，並輸出D<br>
+                    &emsp;&emsp;&emsp;&emsp;（1）假如句子C中有個單字為Cards或是Card$，X=Card<br>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;，此時並不符合替換條件<br>
+                    &emsp;&emsp;&emsp;&emsp;（2）無視單字大小寫差異<br>
+                    &emsp;&emsp;3. 輸出C和D的各自字串長度（不包含空白，但包含符號），中間以空白隔開<br>
+                    &emsp;&emsp;4. 將句子D中單字為Y的部分倒著輸出（假如句子D中有個單字為Cards，Y=Card，此時並不符合倒著輸出條件）<br>
+                    &emsp;&emsp;5. N為單字X和單字Y的字數差異，N為大於0的整數（即X和Y字數不會相同）<br>
+                    &emsp;&emsp;6. 將句子C從第1個字開始，每隔N個輸出（輸出過程中，不得連續輸出2次空白）<br>
+               <br>
+                </section>
+            </section>
+
+            <section>
+              <h3>輸入說明</h3>
+              <section 
+              data-no="6"
+               data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                  style="text-align: left"><br>
+                  輸入說明<br>
+                  &emsp;&emsp;第1行：輸入一行字串A<br>
+                  &emsp;&emsp;第2行：輸入一行字串B<br>
+                  &emsp;&emsp;第3行：輸入一行字串X<br>
+                  &emsp;&emsp;第4行：輸入一行字串Y<br>
+                  範例輸入說明：<br>
+                  &emsp;&emsp;If you have a card , （句子A）<br>
+                  &emsp;&emsp;I will give you some cards. （句子B）<br>
+                  &emsp;&emsp;card （單字X）<br>
+                  &emsp;&emsp;pokers （單字Y）<br>
+              </section>
+          </section>
+
+        <section>
+            <h3>輸出說明</h3>
+            <section 
+            data-no="6"
+             data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                style="text-align: left"><br>
+                輸出說明：<br>
+                &emsp;&emsp;第1行：輸出句子C<br>
+                &emsp;&emsp;第2行：輸出句子D<br>
+                &emsp;&emsp;第3行：輸出句子C和句子D的各自長度（不包含空白）<br>
+                &emsp;&emsp;第4行：將句子D中單字為Y的部分倒著輸出<br>
+                &emsp;&emsp;第5行：將句子C從第1個字開始，每隔N個輸出<br>
+                輸出範例說明：<br>
+                &emsp;&emsp;If you have a card , I will give you some cards. （句子A, B串聯成句子 C，中間用空白隔開）<br>
+                &emsp;&emsp;If you have a pokers , I will give you some cards.（句子C中的單字X替換成單字Y變成句子D， card符合替換的條件，但是cards並不符合）<br>
+                &emsp;&emsp;37 39 （句子C長度為37，句子D長度為39）<br>
+                &emsp;&emsp;If you have a srekop , I will give you some cards. （將句子D中單字為Y（pokers）的部分倒著輸出）<br>
+                &emsp;&emsp;I o aeacr   ilgv o oecrs （句子C從第1個字開始，每隔2個（X字數和Y字數差異為2）輸出）<br>
+            </section>
+        </section>
+
+            <section>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 150%; font-size: 20px;">
+                        <tr>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>
+                            This is a book isa.<br>That is a cat<br>is<br>was
+                          </td>
+                          <td>
+                            This is a book isa. That is a cat<br>This was a book isa. That was a cat<br>25 27<br>This saw a book isa. That saw a cat<br>This is a book isa. That is a cat
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            today is a good day god thing goods good tips<br>every good change is goo CC.<br>good<br>BP
+                          </td>
+                          <td>
+                            today is a good day god thing goods good tips every good change is goo CC.<br>today is a BP day god thing goods BP tips every BP change is goo CC.<br>59 53<br>today is a PB day god thing goods PB tips every PB change is goo CC.<br>tdyi  oddygdtiggosgo iseeygo hnei o C
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Can you can a can.<br>as a canner can can a can .<br>can<br>BaNNCr
+                          </td>
+                          <td>
+                            Can you can a can. as a canner can can a can .<br>BaNNCr you BaNNCr a can. as a canner BaNNCr BaNNCr a BaNNCr .<br>34 49<br>rCNNaB you rCNNaB a can. as a canner rCNNaB rCNNaB a rCNNaB .<br>C uaaa  cn naaa.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Whether the weather be cold or<br>whether the weather be hot<br>thE<br>TtTtTtT
+                          </td>
+                          <td>
+                            Whether the weather be cold or whether the weather be hot<br>Whether TtTtTtT weather be cold or whether TtTtTtT weather be hot<br>47 55<br>Whether TtTtTtT weather be cold or whether TtTtTtT weather be hot<br>Whtwhbooheheeet
+                          </td>
+                        </tr>
+                      </table>
+                </section>
+            </section>
+
+            <section>
+              <h3>Tips</h3>
+                  <section
+                      data-no="8"
+                      data-positionx="0.8" 
+                      data-positiony="0.03" 
+                      data-scale="1" 
+                      data-motionno="0"
+                      style="text-align: left"><br><br>
+                      <section data-auto-animate>
+                          <pre><code data-trim data-noescape>
+                              def mergeABcreateC(A,B):  
+                              
+                              def StringlengthWithoutWiteSpace(String1):
+                              
+                              def wordnum(string1):
+
+                              def replaceXtoY(X,Y,string1):
+
+                              def reverseY(Y,string1):
+
+                              def contentbetweenN(N,string1):
+                          </code></pre> 
+                      </section>
+                  </section>
+              </section>
+          </section>
+
+          <section>
+            <h3 >解答</h3>
+            <section
+                data-no="8"
+                data-positionx="0.8" 
+                data-positiony="0.03" 
+                data-scale="1" 
+                data-motionno="0"
+                style="text-align: left"><br><br>
+                <section data-auto-animate>
+                    <pre><code data-trim data-noescape>
+                      def mergeABcreateC(A,B):
+                          return A+" "+B
+                      
+                      def StringlengthWithoutWiteSpace(String1):
+                          num=0
+                          temp=String1.split(" ")
+                          for i in range(len(temp)):
+                              num+=len(temp[i])
+                          return num
+                      
+                      def wordnum(string1):
+                          return len(string1)
+                      
+                      def replaceXtoY(X,Y,string1):
+                          # 將字用空格拆開
+                          temp=string1.split(" ")
+                          result=""
+                          # 判斷每個字
+                          for i in range(len(temp)):
+                              word=temp[i]
+                              # 無視單字大小寫差異做比對(全轉成大寫做比對)
+                              if(word.upper()==X.upper()):
+                                  result+=Y
+                              else:
+                                  result+=temp[i]
+                              if(i!=(len(temp)-1)):
+                                  result+=" "
+                          return result
+                      
+                      def reverseY(Y,string1):
+                          temp=string1.split(" ")
+                          result=""
+                          for i in range(len(temp)):
+                              word=temp[i]
+                              if(word==Y):
+                                  # 把Y倒置
+                                  result+=Y[-1:0:-1]+Y[0]
+                              else:
+                                  result+=temp[i]
+                              if(i!=(len(temp)-1)):
+                                  result+=" "
+                          return result
+                      
+                      def contentbetweenN(N,string1):
+                          result=""
+                          prechar=""
+                          # 每隔N個輸出
+                          for i in range(0,len(string1),N):
+                              if(prechar!=" " or string1[i]!=" "):
+                                  result+=string1[i]
+                              prechar=string1[i]
+                          return result
+                      
+                      
+                      def func():
+                          A=input()
+                          B=input()
+                          X=input()
+                          Y=input()
+                          C=mergeABcreateC(A,B)
+                          D=replaceXtoY(X,Y,C)
+                          N=max(wordnum(X),wordnum(Y))-min(wordnum(X),wordnum(Y))
+                          print(C)
+                          print(D)
+                          print(str(StringlengthWithoutWiteSpace(C))+" "+str(StringlengthWithoutWiteSpace(D)))
+                          print(reverseY(Y,D))
+                          print(contentbetweenN(N,C))
+                      
+                      if __name__=="__main__":
+                          func()
+                    </code></pre> 
+                </section>
+            </section>
+           </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

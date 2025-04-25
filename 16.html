@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-16
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>16. 判斷三角形並找最大/最小面積</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;給定n個三角形和其三邊長，輸出該三角形類型，若可構成三角形則再輸出面積。全部輸入完後，再輸出其中最大和最小面積。<br>
+                    &emsp;&emsp;輸出面積四捨五入取到小數點第二位。<br><br>
+                    <br>&emsp;&emsp;若輸入的所有三角形皆不是三角形，則不輸出最大與最小面積，改為輸出 All inputs are not triangles!<br>
+                    <br>&emsp;&emsp;※三角形面積可利用海龍公式計算(a,b,c表示三角形三邊長)：<br>
+                    &emsp;&emsp;&emsp;&emsp;<img style="width:1800px;" src="img/16/16.png">
+                    <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>16. 判斷三角形並找最大/最小面積</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;※三角形類型輸出如下<br>
+                    &emsp;&emsp;1. 不能成為三角形：輸出not a triangle，且不用輸出面積。<br><br>
+                    &emsp;&emsp;2. 正三角形：輸出equilateral triangle。<br><br>
+                    &emsp;&emsp;3. 等腰三角形：輸出isosceles triangle。<br><br>
+                    &emsp;&emsp;4. 鈍角三角形:輸出obtuse triangle。<br><br>
+                    &emsp;&emsp;5. 銳角三角形:輸出acute triangle。<br><br>
+                    &emsp;&emsp;6. 直角三角形:輸出right triangle。<br><br>
+                    <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>16. 判斷三角形並找最大/最小面積</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;當三個邊長能構成三角形時，判斷該三角形是否為正三角形，若否，則判斷是否為等腰三角形。若皆非正三角形或等腰三角形，再判斷該三角形為鈍角三角形、銳角三角形或直角三角形。<br>
+                    &emsp;&emsp;1. 不能成為三角形：任兩邊和不大於第三邊，或任一邊長不大於0。<br><br>
+                    &emsp;&emsp;2. 正三角形：三個邊相等。<br><br>
+                    &emsp;&emsp;3. 等腰三角形：任兩邊相等，且平方和大於第三邊的平方。<br><br>
+                    &emsp;&emsp;4. 鈍角三角形: 最長邊平方大於兩短邊平方和<br><br>
+                    &emsp;&emsp;5. 銳角三角形: 最長邊平方小於兩短邊平方和<br><br>
+                    &emsp;&emsp;6. 直角三角形: 最長邊平方等於兩短邊平方和<br><br>
+                    <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    &emsp;&emsp;輸入說明<br>
+                    &emsp;&emsp;&emsp;&emsp;第1行：輸入一個正整數，表示接下來將輸入n個三角形的三邊長<br>
+                    &emsp;&emsp;&emsp;&emsp;（2<=n<=10）<br><br>
+                        &emsp;&emsp;&emsp;&emsp;第2~n+1行：輸入三個正整數，以空白隔開。表示該三角形的三邊長。<br><br>
+                        &emsp;&emsp;輸出說明<br>
+                        &emsp;&emsp;&emsp;&emsp;第1~n行：輸出三角形類型。若可構成三角形，則再輸出面積(四捨五入取到小數點第二位)，面積為一浮點數。三角形類型與面積以空白隔開。<br><br>
+                        &emsp;&emsp;&emsp;&emsp;若輸入有任一個可構成三角形，輸出兩行<br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;第n+1行：為一浮點數，表示最大的三角形面積<br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;第n+2行：為一浮點數，表示最小的三角形面積<br><br>
+                        &emsp;&emsp;&emsp;&emsp;若全部輸入皆不可構成三角形，則輸出一行<br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;第n+1行：All inputs are not triangles!<br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例解釋</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+
+                    &emsp;&emsp;輸入範例說明<br><br>
+                    &emsp;&emsp;&emsp;&emsp;4&emsp;&emsp;#表示接下來將輸入4個三角形<br>
+                    &emsp;&emsp;&emsp;&emsp;3 4 5 #第1個三角形，邊長為3、4、5<br>
+                    &emsp;&emsp;&emsp;&emsp;2 8 6 #第2個三角形，邊長為2、8、6<br>
+                    &emsp;&emsp;&emsp;&emsp;4 4 3 #第3個三角形，邊長為4、4、3<br>
+                    &emsp;&emsp;&emsp;&emsp;3 3 3 #第4個三角形，邊長為3、3、3<br><br>
+                    &emsp;&emsp;輸入範例說明<br><br>
+                    &emsp;&emsp;&emsp;&emsp;right triangle 6.00 #邊長為3、4、5的三角形為直角三角形，面積=6<br>
+                    &emsp;&emsp;&emsp;&emsp;not a triangle #邊長為2、8、6的三角形非三角形<br>
+                    &emsp;&emsp;&emsp;&emsp;isosceles triangle 5.56 #邊長為4、4、3的三角形為等腰三角形，面積<br>
+                    &emsp;&emsp;&emsp;&emsp;=5.56<br>
+                    &emsp;&emsp;&emsp;&emsp;equilateral triangle 3.90 #邊長為3、3、3的三角形為正三角形，面積=3.9<br>
+                    &emsp;&emsp;&emsp;&emsp;6.00 #面積最大為6<br>
+                    &emsp;&emsp;&emsp;&emsp;3.90 #面積最小為3.9<br>
+
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                3<br>3 3 7<br>2 5 1<br>8 4 4
+                            </td>
+                            <td>
+                                not a triangle<br>not a triangle<br>not a triangle<br>All inputs are not triangles!
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>Tips</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    &emsp;&emsp;使用迴圈完成複數次輸入<br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape>
+                              n = int(input())
+                              for i in range(n):
+                                # 輸入三角形
+
+                                # 判斷三角形的種類
+
+                                # 判斷是否符合三角形的規則
+
+                                # 計算三角形面積
+                            </code></pre>
+                    </section>
+                </section>
+            </section>
+            </section>
+
+            <section>
+                <h3>解答</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape data-line-numbers="|33-36|37-41|43-43|13-31|1-6|44-54|8-11|56-67|">
+                      #排列大小
+                      def sortThree(a,b,c):
+                          minNum = min(a, b, c)
+                          maxNum = max(a, b, c)
+                          midNum = a + b + c - minNum - maxNum
+                          return minNum, midNum, maxNum
+                      
+                      #計算面積
+                      def computeArea(a,b,c):
+                          s = (a+b+c)/2
+                          return pow(s*(s-a)*(s-b)*(s-c),0.5)
+                      
+                      #判斷三角形種類
+                      def getTriangle(a,b,c):
+                          if(a == b and b == c):
+                              return "equilateral triangle"
+                          else:
+                              a,b,c = sortThree(a,b,c)
+                              if( (a+b) &lt;= c):
+                                  return "not a triangle"
+                              elif( (a == b) and ( ( a**2 + b**2 ) > c**2 ) or ((b == c) and ( ( b**2 + c**2 ) > a**2 )) ):
+                                  return "isosceles triangle"
+                              elif( ( a**2 + b**2 ) &lt; c**2 ):
+                                  return "obtuse triangle"
+                              elif( ( a**2 + b**2 ) > c**2):
+                                  return "acute triangle"
+                              elif(( a**2 + b**2 ) == c**2 ):
+                                  return "right triangle"
+                              else:
+                                  return "not a triangle"
+                      
+                      
+                      n = int(input())
+                      minArea = 9999
+                      maxArea = 0
+                      allNotFlag = True
+                      for i in range(n):
+                          a,b,c = input().split()
+                          a = int(a)
+                          b = int(b)
+                          c = int(c)
+                          
+                          triangleType = getTriangle(a,b,c)
+                          if( triangleType == "not a triangle"):
+                              area = 0
+                          else:
+                              allNotFlag = False
+                              area = computeArea(a,b,c)
+                         
+                              if(area &lt; minArea):
+                                  minArea = area
+                              
+                              if(area > maxArea):
+                                  maxArea = area
+                      
+                          print(triangleType,end=' ')
+                          if(area > 0):
+                              print(f"{area:.2f}")
+                          else:
+                              print()
+                          
+                      
+                      if(allNotFlag):
+                          print("All inputs are not triangles!")
+                      else:
+                          print(f"{maxArea:.2f}")
+                          print(f"{minArea:.2f}")
+                    </code></pre>
+                    </section>
+                </section>
+            </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-12
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+        table, th, td {
+            border:1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>12. 撲克牌</h3>
+                <section 
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;撲克牌的牌面符號A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K，對應的點數：<br>
+                    &emsp;&emsp;&emsp;&emsp;2~10 點數為 2~10，A, J, Q, K 為 0.5。<br><br>
+                    &emsp;&emsp;一位玩家一位莊家，各發三張撲克牌，加總點數越接近 10.5 的贏；
+                    <br>&emsp;&emsp;如果總點數相同，則雙方平手 (Tie)
+                    <br>&emsp;&emsp;總點數超過 10.5 (不含10.5) ，點數變為 0。<br><br>
+                    &emsp;&emsp;以兩種規則決定勝負：
+                    <br>&emsp;&emsp;&emsp;&emsp;1. 先加總玩家總點數，如果玩家點數為0則不需加總莊家點數，
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;此時莊家獲勝。
+                    <br>&emsp;&emsp;&emsp;&emsp;2. 玩家與莊家總點數都計算完後才判斷勝負。
+                </section>
+            </section>
+
+            <section>
+              <h3>輸入：輸出說明</h3>
+              <section 
+              data-no="6"
+               data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                  style="text-align: left"><br>
+                  &emsp;&emsp;輸入：說明<br>
+                  &emsp;&emsp;&emsp;&emsp;第一行，輸入：玩家的名字(字串)<br>
+                  &emsp;&emsp;&emsp;&emsp;第二 ~ 四行，輸入：玩家的三張撲克牌<br>
+                  &emsp;&emsp;&emsp;&emsp;第五行，輸入：莊家的名字(字串)<br>
+                  &emsp;&emsp;&emsp;&emsp;第六 ~ 八行，輸入：莊家的三張撲克牌<br><br>
+                  &emsp;&emsp;輸出說明<br>
+                  &emsp;&emsp;&emsp;&emsp;第一行，以第一種規則判斷，輸出「勝利者的名字 Win」，<br>
+                  &emsp;&emsp;&emsp;&emsp;若雙方平手，輸出Tie<br><br>
+                  &emsp;&emsp;&emsp;&emsp;第二行，以第二種規則判斷，輸出「勝利者的名字 Win」，<br>
+                  &emsp;&emsp;&emsp;&emsp;若雙方平手，輸出Tie<br>
+              </section>
+          </section>
+
+          <section>
+            <h3>輸入：輸出範例解釋</h3>
+            <section 
+            data-no="6"
+             data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                style="text-align: left"><br>
+                &emsp;&emsp;輸入：<br>
+                &emsp;&emsp;&emsp;&emsp;X  (玩家的 名字 為 X)<br>
+                &emsp;&emsp;&emsp;&emsp;A  (玩家的 第一張 撲克牌為 A)<br>
+                &emsp;&emsp;&emsp;&emsp;9  (玩家的 第二張 撲克牌為 9)<br>
+                &emsp;&emsp;&emsp;&emsp;3  (玩家的 第三張 撲克牌為 3)<br>
+                &emsp;&emsp;&emsp;&emsp;Y  (莊家的 名字 為 Y)<br>
+                &emsp;&emsp;&emsp;&emsp;6  (莊家的 第一張 撲克牌為 6)<br>
+                &emsp;&emsp;&emsp;&emsp;8  (莊家的 第二張 撲克牌為 8)<br>
+                &emsp;&emsp;&emsp;&emsp;Q  (莊家的 第三張 撲克牌為 Q)<br><br>
+                &emsp;&emsp;輸出：<br>
+                &emsp;&emsp;&emsp;&emsp;Y Win<br>
+                &emsp;&emsp;&emsp;&emsp;(以第一種規則判斷：玩家的總點數為0.5 + 9 + 3 = 12.5，因為玩家總點<br>
+                &emsp;&emsp;&emsp;&emsp;數超過10.5，所以玩家點數變為0，莊家獲勝)<br>
+                &emsp;&emsp;&emsp;&emsp;Tie<br>
+                &emsp;&emsp;&emsp;&emsp;(以第二種規則判斷，莊家的總點數為 6 + 8 + 0.5 = 14.5，因為玩家與莊家<br>
+                &emsp;&emsp;&emsp;&emsp;總點數都超過10.5，所以玩家與莊家總點數都變為0，平手)<br>
+
+            </section>
+        </section>
+
+            <section>
+                <h3>撲克牌 輸入：輸出範例-1</h3>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>
+                            C<br>A<br>6<br>J<br>D<br>2<br>K<br>4
+                          </td>
+                          <td>
+                            C Win<br>C Win
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>
+                              C<br>2<br>6<br>K<br>D<br>A<br>5<br>3
+                            </td>
+                            <td>
+                              Tie<br>Tie
+                            </td>
+                          </tr>
+                      </table>
+                </section>
+            </section>
+
+            <section>
+              <h3>撲克牌 輸入：輸出範例-2</h3>
+              <section
+              data-no="6"
+               data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                  style="text-align: left">
+                  <table style="background-color: #fff; width: 50%;">
+                      <tr>
+                        <th>Input</th>
+                        <th>Output</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          S<br>4<br>2<br>3<br>R<br>8<br>2<br>Q
+                        </td>
+                        <td>
+                          R Win<br>R Win
+                        </td>
+                      </tr>
+                      <tr>
+                          <td>
+                            C<br>10<br>9<br>8<br>D<br>8<br>9<br>10
+                          </td>
+                          <td>
+                            D Win<br>Tie
+                          </td>
+                        </tr>
+                    </table>
+              </section>
+          </section>
+
+            <section>
+                <h3>Tips</h3>
+                    <section
+                        data-no="8"
+                        data-positionx="0.8" 
+                        data-positiony="0.03" 
+                        data-scale="1" 
+                        data-motionno="0"
+                        style="text-align: left"><br><br>
+                        <section data-auto-animate>
+                            <pre><code data-trim data-noescape>
+                              def getSum(card1, card2, card3):
+                                #
+                                # 卡片分數總合
+                                #
+                              
+                              def compareRule1(aName, aCard1, aCard2, aCard3, bName, bCard1, bCard2, bCard3):
+                                #
+                                # 第一種玩法
+                                #
+                              
+                              def compareRule2(aName, aCard1, aCard2, aCard3, bName, bCard1, bCard2, bCard3):
+                                #
+                                # 第二種玩法
+                                #
+                            </code></pre> 
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+          <section>
+            <h3 >解答</h3>
+            <section
+                data-no="8"
+                data-positionx="0.8" 
+                data-positiony="0.03" 
+                data-scale="1" 
+                data-motionno="0"
+                style="text-align: left"><br><br>
+                &emsp;&emsp;<br>
+                <section data-auto-animate>
+                    <pre><code data-trim data-noescape data-line-numbers="|47-56|1-22|57-58|24-35|59-60|37-45|">
+                        # 求分數總合
+                        def getSum(card1, card2, card3):
+                            total = 0
+                            if(card1 == 'A' or card1 == 'J' or card1 == 'Q' or card1 == 'K'):
+                                total += 0.5
+                            else:
+                                total += int(card1)
+                                
+                            if(card2 == 'A' or card2 == 'J' or card2 == 'Q' or card2 == 'K'):
+                                total += 0.5
+                            else:
+                                total += int(card2)
+                                
+                            if(card3 == 'A' or card3 == 'J' or card3 == 'Q' or card3 == 'K'):
+                                total += 0.5
+                            else:
+                                total += int(card3)
+                        
+                            if(total > 10.5):
+                                total = 0
+                            
+                            return total
+                        
+                        def compareRule1(aName, aCard1, aCard2, aCard3, bName, bCard1, bCard2, bCard3):
+                            aTotal = getSum(aCard1, aCard2, aCard3)
+                            if(aTotal == 0):
+                                return '{0} Win'.format(bName)
+                            
+                            bTotal = getSum(bCard1, bCard2, bCard3)
+                            if(aTotal > bTotal):
+                                return '{0} Win'.format(aName)
+                            elif(aTotal == bTotal):
+                                return 'Tie'
+                            else:
+                                return '{0} Win'.format(bName)
+                        
+                        def compareRule2(aName, aCard1, aCard2, aCard3, bName, bCard1, bCard2, bCard3):
+                            aTotal = getSum(aCard1, aCard2, aCard3)
+                            bTotal = getSum(bCard1, bCard2, bCard3)
+                            if(aTotal > bTotal):
+                                return '{0} Win'.format(aName)
+                            elif(aTotal == bTotal):
+                                return 'Tie'
+                            else:
+                                return '{0} Win'.format(bName)
+                        
+                        # 玩家
+                        aName = input()
+                        aCard1 = input()
+                        aCard2 = input()
+                        aCard3 = input()
+                        # 莊家
+                        bName = input()
+                        bCard1 = input()
+                        bCard2 = input()
+                        bCard3 = input()
+                        # 玩法一
+                        print(compareRule1(aName, aCard1, aCard2, aCard3, bName, bCard1, bCard2, bCard3))
+                        # 玩法二
+                        print(compareRule2(aName, aCard1, aCard2, aCard3, bName, bCard1, bCard2, bCard3))
+                    </code></pre> 
+                </section>
+            </section>
+           </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

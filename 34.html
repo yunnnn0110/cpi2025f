@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-34
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>34. 朋友相依關係</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    某社群平台上，每一個使用者都可以將其他使用者設定為【認識的人】，並填上對該使用者的【熟悉度】數值。
+                    若 A 和 B 互相加對方為認識的人，則 A 與 B 的關係為【朋友】，其熟悉度為兩人設定的較小值。
+                    A 可以找尋 B 的朋友，然後認識第二層的新朋友，透過這種方法可以認識一層又一層新的朋友。
+                    <br><br>
+                    給定 N 個認識的人與 A，B，請找出 :<br>
+                    &emsp;&emsp;1. A 最少要經過多少層的朋友關係才能找到 B ? 會經過哪些朋友?<br>
+                    &emsp;&emsp;2. 假設 A 要經過加總最大熟悉度的朋友關係才能找尋到 B，則會經過哪些朋友? 加總的最大熟悉度為何?<br><br>
+                    【特殊要求】<br>
+                    請使用 dictionary 儲存資料並完成此題目<br>
+                    <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    輸入說明：<br><br>
+                    第一行：輸入N個整數，代表認識的人 (2<=N<=10)<br>
+                        第二行：輸入兩個字元(X,Y)和一個數值(K)，中間皆用一個空白隔開，分別代表第一個人，第二個人，以及第一個人對第二個人的熟悉度(1<=K<=10)。<br>
+                            ...<br>
+                            直到輸入 -1 結束<br>
+                </section>
+            </section>
+
+            <section>
+                <h3>範例輸入說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    3 (總共有3個人，A，B，C)<br>
+                    A B 3 (A 認識 B，熟悉度為 3，中間皆用一個空白隔開)<br>
+                    B A 4 (B 認識 A，熟悉度為 4，中間皆用一個空白隔開)<br>
+                    A C 2 (A 認識 C，熟悉度為 2，中間皆用一個空白隔開)<br>
+                    C A 3 (C 認識 A，熟悉度為 3，中間皆用一個空白隔開)<br>
+                    C B 3 (C 認識 B，熟悉度為 3，中間皆用一個空白隔開)<br>
+                    B C 5 (B 認識 C，熟悉度為 5，中間皆用一個空白隔開)<br>
+                    -1 (結束) <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸出說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    第一行：輸出 A 經過多少層找到 B<br>
+                    第二行：輸出 A 經過哪些朋友找到 B (包括起點A和終點B)，朋友之間用一個空白隔開<br>
+                    第三行：輸出 A 找到 B 所經過的最大熟悉度加總<br>
+                    第四行：輸出 A 經過哪些朋友找到 B (包括起點A和終點B)﹐朋友之間用一個空白隔開<br>
+                </section>
+            </section>
+
+            <section>
+                <h3>範例輸出說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    1 (A 僅需經過 1 層朋友關係即可認識 B (A 和 B 原本就認識))<br>
+                    A B (A 和 B 原本就認識，不需經過其他朋友，朋友之間用一個空白隔開)<br>
+                    5 (加總的最大熟悉度為 5)<br>
+                    A C B (A 認識 C 後再透過 C 認識 B，朋友之間用一個空白隔開)<br>
+                    因為A對C的熟悉度為2，C對A的熟悉度為3，所以A與C之間的熟悉度為2(取較小值)<br>
+                    因為C對B的熟悉度為3，B對C的熟悉度為5，所以B與C之間的熟悉度為3(取較小值)<br>
+                    當 A 認識 C，再透過 C 認識 B，會得到加總最大的熟悉度 2 + 3 = 5。<br>
+                </section>
+            </section>
+
+            <section>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%; font-size: 20px;">
+                        <tr>
+                            <th>輸入輸出範例</th>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>測試資料一</td>
+                            <td>
+                                3<br>A B 3<br>B A 4<br>A C 2<br>C A 3<br>C B 3<br>B C 4<br>-1
+                            </td>
+                            <td>
+                                1<br>A B<br>5<br>A C B<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>測試資料二</td>
+                            <td>
+                                5<br>C A 3<br>A C 1<br>B C 8<br>C B 6<br>D E 1<br>E D 2<br>E B 1<br>B E 3<br>-1
+                            </td>
+                            <td>
+                                2<br>A C B<br>7<br>A C B
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%; font-size: 20px;">
+                        <tr>
+                            <th>輸入輸出範例</th>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>測試資料三</td>
+                            <td>
+                                7<br>A C 2<br>C A 8<br>A E 6<br>E A 8<br>C D 1<br>D C 8<br>E F 4<br>F E 9<br>B D 4<br>D
+                                B 3<br>F G 2<br>G F 4<br>B G 4<br>G B 5<br>-1
+                            </td>
+                            <td>
+                                3<br>A C D B<br>16<br>A E F G B
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%; font-size: 20px;">
+                        <tr>
+                            <th>輸入輸出範例</th>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>測試資料四</td>
+                            <td>
+                                6<br>A E 2<br>E A 1<br>E C 2<br>C E 1<br>D C 2<br>C D 1<br>B D 2<br>D B 1<br>A F 2<br>F
+                                A 1<br>E F 2<br>F E 1<br>-1
+                            </td>
+                            <td>
+                                4<br>A E C D B<br>5<br>A E F G B
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>Tips</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape>
+                            from collections import deque
+                            
+                            # 找到從起點到終點的最短路徑，使用廣度優先搜索 (BFS)
+                            def find_shortest_path(graph, start, end):
+
+                            # 使用深度優先搜索 (DFS) 找到從node到終點的最大熟悉度路徑
+                            def dfs(node, end, graph, path, familiarity):
+                          </code></pre>
+                    </section>
+                </section>
+            </section>
+            </section>
+
+            <section>
+                <h3>解答</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape>
+                        from collections import deque
+
+                        # 找到從起點到終點的最短路徑，使用廣度優先搜索 (BFS)
+                        def find_shortest_path(graph, start, end):
+                            visited = set()  # 記錄已訪問的node
+                            queue = deque([[start, [start]]])  # 初始化queue，包含起點和路徑
+                        
+                            while queue:
+                                node, path = queue.popleft()  # 從queue左端彈出一個node和其路徑
+                                if node not in visited:
+                                    visited.add(node)  # 標記當前node為已訪問
+                                    neighbors = graph[node]  # 獲取當前node的所有鄰居
+                                    for neighbor, weight in neighbors:
+                                        if neighbor == end:
+                                            return path + [neighbor]  # 找到終點，返回完整路徑
+                                        else:
+                                            queue.append([neighbor, path + [neighbor]])  # 將鄰居加入queue，繼續搜索
+                        
+                        # 使用深度優先搜索 (DFS) 找到從node到終點的最大熟悉度路徑
+                        def dfs(node, end, graph, path, familiarity):
+                            if node == end:
+                                return familiarity, path[:]  # 到達終點，返回當前熟悉度和路徑
+                        
+                            max_familiarity = 0  # 初始化最大熟悉度
+                            max_familiar_path = []  # 初始化最大熟悉度的路徑
+                        
+                            for neighbor, weight in graph[node]:
+                                if neighbor not in path:  # 避免環路
+                                    # 遞歸搜索鄰居node
+                                    new_familiarity, new_path = dfs(neighbor, end, graph, path + [neighbor], familiarity + weight)
+                                    if new_familiarity > max_familiarity:
+                                        max_familiarity = new_familiarity  # 更新最大熟悉度
+                                        max_familiar_path = new_path  # 更新最大熟悉度的路徑
+                        
+                            return max_familiarity, max_familiar_path  # 返回最大熟悉度和相應路徑
+                        
+                        # 尋找從起點到終點的最大熟悉度路徑
+                        def find_max_familiar_path(graph, start, end):
+                            max_familiarity, max_familiar_path = dfs(start, end, graph, [start], 0)
+                            return max_familiarity, max_familiar_path
+                        
+                        # 主函數，處理關係圖並輸出結果
+                        def func(relationships):
+                            start_user = 'A'  # 設定起始用戶
+                            end_user = 'B'    # 設定終點用戶
+                            shortest_path = find_shortest_path(relationships, start_user, end_user)  # 找到最短路徑
+                            max_familiarity, max_familiar_path = find_max_familiar_path(relationships, start_user, end_user)  # 找到最大熟悉度路徑
+                        
+                            print(len(shortest_path)-1)            # 輸出最短路徑的邊數
+                            print(' '.join(shortest_path))         # 輸出最短路徑的node序列
+                            print(max_familiarity)                 # 輸出最大熟悉度
+                            print(' '.join(max_familiar_path))     # 輸出最大熟悉度路徑的node序列
+                        
+                        # 檢查目標node是否存在於項目列表中
+                        def inDic(target, itemList):
+                            for item in itemList:
+                                if item[0] == target:
+                                    return True
+                            return False
+                        
+                        # 更新關係圖中兩個node之間的熟悉度
+                        def update(relationships, start, target, familiarity):
+                            for item in relationships[start]:
+                                if item[0] == target:
+                                    if item[1] > familiarity:
+                                        item[1] = familiarity  # 更新為較低的熟悉度
+                                        return
+                        
+                        # 讀取輸入並構建關係圖
+                        def setInput():
+                            N = int(input())  # 讀取關係數量
+                            relationships = {}  # 初始化關係圖
+                        
+                            while True:
+                                content = input()
+                                if content == '-1':  # 結束輸入的標誌
+                                    return relationships
+                                list = [str(i) for i in content.split()]
+                                start = list[0]            # 起點node
+                                end = list[1]              # 終點node
+                                familiarity = int(list[2])  # 熟悉度
+                        
+                                if start not in relationships:
+                                    relationships[start] = []  # 初始化起點的鄰居列表
+                        
+                                if end not in relationships:
+                                    relationships[end] = []    # 初始化終點的鄰居列表
+                        
+                                # 如果關係已存在，則更新熟悉度
+                                if inDic(end, relationships[start]) and inDic(start, relationships[end]):
+                                    update(relationships, start, end, familiarity)
+                                    update(relationships, end, start, familiarity)
+                                else:
+                                    # 添加新的關係
+                                    relationships[start].append([end, familiarity])
+                                    relationships[end].append([start, familiarity])
+                        
+                        # 程式進入點
+                        if __name__ == "__main__":
+                            relationships = setInput()  # 構建關係圖
+                            func(relationships)          # 執行主功能
+                    </code></pre>
+                    </section>
+                </section>
+            </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

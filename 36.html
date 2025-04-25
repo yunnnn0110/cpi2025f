@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-36
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>36. 部落旅遊</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    假設總共有 N 條道路，每一條道路皆代表部落間存在道路相連接,並且設定兩部落 X 和 Z, X 代表起始點部落,Z 代表終點部落,以及給定 K 個部落作為休息點,請找出從部落 X
+                    經過哪個休息點部落再到終點部落 Z 的路徑為最短。<br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    輸入說明：<br><br>
+                    第一行：輸入路徑個數N，起點部落X和終點部落Z，中間皆用一個空白隔開 (3<=N<=15, 1<=X,Z<=20)<br>
+                        第二行：輸入K個部落作為休息點(1<=K<=5)，部落之間以一個空白隔開<br>
+                            第三行~第N+2行: 每一行輸入兩正整數 A B,代表 A 部落與 B 部落間有道路相連接 (1<=A,B<=20)<br>
+                </section>
+            </section>
+
+            <section>
+                <h3>範例輸入說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    5 1 3 (總共有5條路徑，起點為部落1，終點為部落3)<br>
+                    2 4 (休息點為部落2和部落4)<br>
+                    2 1 (部落2和部落1有路徑相連接)<br>
+                    4 5 (部落4和部落5有路徑相連接)<br>
+                    3 4 (部落3和部落4有路徑相連接)<br>
+                    2 4 (部落2和部落4有路徑相連接)<br>
+                    4 1 (部落4和部落1有路徑相連接)<br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸出說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    第一行：若找不到符合條件的最短路徑，則直接輸出 NO(不用輸出第二行)，否則輸出X部落中途經過哪個休息點部落抵達 Z部落的路徑為最短。<br>
+                    第二行：若存在符合條件的最短路徑(從X部落到Z部落的途中有經過休息點部落)，則輸出所經過的部落，部落之間用一個空白隔開，包含起點和終點<br>
+                </section>
+            </section>
+
+            <section>
+                <h3>範例輸出說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    4 (部落1到部落3的最短路徑中，經過休息點部落4)<br>
+                    1 4 3 (部落1 → 部落4 → 部落 3)<br>
+                </section>
+            </section>
+
+            <section>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%; font-size: 20px;">
+                        <tr>
+                            <th>輸入輸出範例</th>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>測試資料一</td>
+                            <td>
+                                4 2 5<br>4<br>4 6<br>4 8<br>2 4<br>5 6
+                            </td>
+                            <td>
+                                4<br>2 4 6 5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>測試資料二</td>
+                            <td>
+                                5 1 3<br>2 4<br>2 1<br>4 5<br>3 4<br>2 4<br>4 1
+                            </td>
+                            <td>
+                                4<br>1 4 3
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>測試資料三</td>
+                            <td>
+                                10 2 10<br>3 5 7 8<br>1 2<br>2 3<br>3 4<br>4 5<br>5 6<br>6 7<br>7 8<br>3 9<br>8 9<br>9
+                                10
+                            </td>
+                            <td>
+                                3<br>2 3 9 10
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%; font-size: 20px;">
+                        <tr>
+                            <th>輸入輸出範例</th>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>測試資料四</td>
+                            <td>
+                                8 2 9<br>4 6 8<br>1 4<br>4 3<br>5 2<br>3 2<br>1 5<br>6 9<br>8 7<br>6 8
+                            </td>
+                            <td>
+                                NO
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>解答</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape>
+                            def FindPath(dict, startNode, endNode, middleNode):
+                                queue = [[startNode]]          # 初始化queue，包含起始node的路徑
+                                visited = []                   # 初始化已訪問node列表
+                                FindMiddle = False             # 標記是否已找到中間node
+                            
+                                while queue:
+                                    path = queue.pop()         # 從queue中取出最後一條路徑
+                                    node = path[-1]            # 取得當前路徑的最後一個node
+                                    if node not in visited:
+                                        for neighbor in dict[node]:    # 遍歷當前node的所有鄰居
+                                            if neighbor in visited:    # 如果鄰居已訪問過，跳過
+                                                continue
+                            
+                                            if neighbor == middleNode: # 如果鄰居是中間node
+                                                queue.clear()           # 清空queue，因為要從中間node開始新路徑
+                                                cur_path = path + [neighbor]  # 更新當前路徑，加上中間node
+                                                queue.append(cur_path)         # 將新路徑加入queue
+                                                FindMiddle = True             # 標記已找到中間node
+                                                break                         # 跳出鄰居遍歷
+                            
+                                            cur_path = path + [neighbor]  # 更新當前路徑，加上鄰居node
+                                            queue.append(cur_path)         # 將新路徑加入queue
+                            
+                                            if FindMiddle == True:         # 如果已找到中間node
+                                                if neighbor == endNode:    # 並且鄰居是終點node
+                                                    return len(cur_path)-1, cur_path  # 返回路徑長度和路徑
+                            
+                                        visited.append(node)  # 將當前node標記為已訪問
+                            
+                                return -1, None  # 如果沒有找到符合條件的路徑，返回 -1 和 None
+                            
+                            
+                            if __name__ == "__main__":
+                                content = input().split()           # 讀取第一行輸入並分割成列表
+                                rest = [int(i) for i in input().split()]  # 讀取第二行輸入並轉換為整數列表
+                            
+                                N = int(content[0])                 # 圖中邊的數量
+                                startNode = int(content[1])         # 起始node
+                                endNode = int(content[2])           # 終點node
+                            
+                                dict = {}                            # 初始化圖的鄰接表
+                                for i in range(N):
+                                    start, end = input().split()     # 讀取每條邊的兩個node
+                                    start = int(start)               # 將起點轉換為整數
+                                    end = int(end)                   # 將終點轉換為整數
+                                    if start not in dict:
+                                        dict[start] = []             # 如果起點不在鄰接表中，初始化其列表
+                                    if end not in dict:
+                                        dict[end] = []               # 如果終點不在鄰接表中，初始化其列表
+                                    dict[start].append(end)          # 將終點加入起點的鄰居列表
+                                    dict[end].append(start)          # 將起點加入終點的鄰居列表（無向圖）
+                            
+                                answer = 99999                        # 初始化最短路徑長度為一個大數
+                                answer_path = []                      # 初始化最短路徑
+                                rest_position = 0                     # 初始化中間node位置為 0（表示未找到）
+                            
+                                for n in rest:
+                                    count, path = FindPath(dict, startNode, endNode, n)  # 嘗試找到經過node n 的路徑
+                                    if (count != -1) and (len(path) &lt; answer):         # 如果找到且路徑比目前最短
+                                        answer_path = [str(i) for i in path]           # 更新最短路徑
+                                        rest_position = n                              # 更新中間node
+                                        answer = len(path)                             # 更新最短路徑長度
+                            
+                                if rest_position == 0:
+                                    print("NO")          # 如果沒有找到任何符合條件的路徑，輸出 "NO"
+                                else:
+                                    print(rest_position) # 輸出選擇的中間node
+                                    print(' '.join(answer_path))  # 輸出最短路徑的node序列
+                    </code></pre>
+                    </section>
+                </section>
+            </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

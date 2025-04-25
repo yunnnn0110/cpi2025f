@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-26
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+        table, th, td {
+            border:1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>26. 疫情分析</h3>
+                <section 
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;A城市的人口共有n人，計算期間共有m天。從第1天開始，A城市中有a個人確診，每位確診者在染疫期間會傳染給 b個人。而確診者經過 c 天後會康復，除了具有免疫力外也不會再傳染給其他人。以第1天確診的確診者、且康復天數c = 7為例，在第1~7天皆視為確診，在第8天時才視為康復。
+                    設該城市第一天有d比例的人具有對病毒的免疫力（打過疫苗或已康復），具有免疫力的人不會遭到傳染，即確診人數不會超過n*(1-d)。以1000人、d=0.7為例，最多只會有1000*(1-0.7) = 300人遭傳染。且隨著確診者康復，d會逐漸提高。如d原為0.7，總人口數為1000，而當天共有50人康復，則明天的d = 0.7 + 50/1000 = 0.75。
+                    <br>
+                    &emsp;&emsp;由上計算可知每名確診者在c天裡，每天平均能夠傳染的人數為b / c。而被傳染的人當中又只有不具免疫力的人才會被傳染，故只有1 – d比例的人會確診。<br>
+               <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>26. 疫情分析</h3>
+                <section 
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;故每名確診者每日能夠傳染的人數x為：<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;x = ( b / c) * ( 1 – d )<br>
+                    <br>&emsp;&emsp;可得每天的新增確診數y為：<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;y = 昨日總確診人數 * x，y需無條件捨去小數<br>
+                    <br>&emsp;&emsp;※若當日有人康復，則在計算完當日的新增確診人數後，再進行d的計算。<br>
+                    <br>&emsp;&emsp;請計算出A城市每日的總確診人數、新增確診人數、康復人數，並在最後計算期間共有多少人確診。<br>
+               <br>
+                </section>
+            </section>
+
+            <section>
+              <h3>輸入說明</h3>
+              <section 
+              data-no="6"
+               data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                  style="text-align: left"><br>
+                  輸入說明<br>
+                  &emsp;&emsp;第1行：輸入A城市人口n，n為整數，100 <= n <= 10000<br>
+                  &emsp;&emsp;第2行：輸入計算期間m，m為整數，1 <= m <= 20<br>
+                  &emsp;&emsp;第3行：輸入第一天的確診人數a，a為整數，1 <= a <=  n * (1 - d)<br>
+                  &emsp;&emsp;第4行：輸入每位確診者在確診期間的傳染人數b，b為浮點數，0.1 <= b <= 2<br>
+                  &emsp;&emsp;第5行：輸入康復天數c，c為整數，1 <= c <= 20<br>
+                  &emsp;&emsp;第6行：輸入第一天A城市的免疫率d，d為浮點數，0 <= d <= 1<br><br>
+                  範例輸入說明：<br>
+                  &emsp;&emsp;1000（A城市人口共有1000人）<br>
+                  &emsp;&emsp;10  （計算期間共10天）<br>
+                  &emsp;&emsp;100 （第1天A城市中有100人確診）<br>
+                  &emsp;&emsp;1.2 （確診者在染疫期間傳染給1.2個人）<br>
+                  &emsp;&emsp;7  （確診者需7天才會康復）<br>
+                  &emsp;&emsp;0.7 （A城市有70%的人已免疫）<br>
+              </section>
+          </section>
+
+        <section>
+            <h3>輸出說明</h3>
+            <section 
+            data-no="6"
+             data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                style="text-align: left"><br>
+                輸出說明：<br>
+                &emsp;&emsp;第1~m行：輸出四個整數，中間以一個空白隔開。分別表示第幾天、A城市當天的總確診人數、當天的新增確診人數、當天的康復人數<br>
+                &emsp;&emsp;第m+1行：輸出在m天的期間裡確診的總人數<br>
+                輸出範例說明：<br>
+                &emsp;&emsp;1 100 100 0 （第1天、當天總確診人數100、新增確診人數100、康復人數0）<br>
+                &emsp;&emsp;2 105 5 0   （第2天、當天總確診人數105、新增確診人數5、康復人數0）<br>
+                &emsp;&emsp;3 110 5 0   （第3天、當天總確診人數110、新增確診人數5、康復人數0）<br>
+                &emsp;&emsp;4 115 5 0   （第4天、當天總確診人數115、新增確診人數5、康復人數0）<br>
+                &emsp;&emsp;5 120 5 0   （第5天、當天總確診人數120、新增確診人數5、康復人數0）<br>
+                &emsp;&emsp;6 126 6 0   （第6天、當天總確診人數126、新增確診人數6、康復人數0）<br>
+                &emsp;&emsp;7 132 6 0   （第7天、當天總確診人數132、新增確診人數6、康復人數0）<br>
+                &emsp;&emsp;8 38 6 100  （第8天、當天總確診人數38、新增確診人數6、康復人數100）<br>
+                &emsp;&emsp;9 34 1 5    （第9天、當天總確診人數34、新增確診人數1、康復人數5）<br>
+                &emsp;&emsp;10 30 1 5	  （第10天、當天總確診人數30、新增確診人數1、康復人數5）<br>
+                &emsp;&emsp;140       （10天間共有140人確診）<br>
+            </section>
+        </section>
+
+            <section>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%;">
+                        <tr>
+                        <th>輸入輸出範例</th>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>測試資料一</td>
+                          <td>
+                            300<br>10<br>90<br>1.2<br>7<br>0.7
+                          </td>
+                          <td>
+                            1 90 90 0<br>2 90 0 0<br>3 90 0 0<br>4 90 0 0 <br>5 90 0 0<br>6 90 0 0<br>7 90 0 0<br>8 0 0 90<br>9 0 0 0<br>10 0 0 0<br>90
+                          </td>
+                        </tr>
+                      </table>
+                </section>
+            </section>
+
+            <section>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%;">
+                        <tr>
+                        <th>輸入輸出範例</th>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>測試資料二</td>
+                          <td>
+                            450<br>12<br>120<br>0.2<br>5<br>0.55
+                          </td>
+                          <td>
+                            1 120 120 0<br>2 122 2 0<br>3 124 2 0<br>4 126 2 0 <br>5 128 2 0<br>6 10 2 120<br>7 8 0 2<br>8 6 0 2<br>9 4 0 2<br>10 2 0 2<br>11 0 0 2<br>12 0 0 0<br>130
+                          </td>
+                        </tr>
+                      </table>
+                </section>
+            </section>
+
+            <section>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%;">
+                        <tr>
+                        <th>輸入輸出範例</th>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>測試資料三</td>
+                          <td>
+                            6000<br>10<br>1200<br>1.5<br>4<br>0.75
+                          </td>
+                          <td>
+                            1 1200 1200 0<br>2 1312 112 0<br>3 1435 123 0<br>4 1500 65 0 <br>5 300 0 1200<br>6 188 0 112<br>7 65 0 123<br>8 0 0 65<br>9 0 0 0<br>10 0 0 0<br>1500
+                          </td>
+                        </tr>
+                      </table>
+                </section>
+            </section>
+
+            <section>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%; font-size: 20px;">
+                        <tr>
+                        <th>輸入輸出範例</th>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>測試資料四</td>
+                          <td>
+                            8500<br>20<br>950<br>0.9<br>10<br>0
+                          </td>
+                          <td>
+                            1 950 950 0<br>2 1035 85 0<br>3 1128 93 0<br>4 1229 101 0 <br>5 1339 110 0<br>6 1459 120 0<br>7 1590 131 0<br>8 1733 143 90<br>9 1888 155 0<br>10 2057 169 0<br>11 1292 185 950<br>12 1310 103 85<br>13 1320 103 93<br>14 1322 103 101<br>15 1313 101 110<br>16 1292 99 120<br>17 1257 96 131<br>18 1205 91 143<br>19 1136 86 155<br>20 1046 79 169<br>3103
+                          </td>
+                        </tr>
+                      </table>
+                </section>
+            </section>
+
+            <section>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%;">
+                        <tr>
+                        <th>輸入輸出範例</th>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>測試資料五</td>
+                          <td>
+                            100<br>15<br>30<br>2<br>15<br>0
+                          </td>
+                          <td>
+                            1 30 30 0<br>2 34 4 0<br>3 38 4 0<br>4 43 5 0<br>5 48 5 0<br>6 54 6 0<br>7 61 7 0<br>8 69 8 0<br>9 78 9 0<br>10 88 10 0<br>11 99 11 0<br>12 100 1 0<br>13 100 0 0<br>14 100 0 0<br>15 100 0 0<br>100
+                          </td>
+                        </tr>
+                      </table>
+                </section>
+            </section>
+
+          <section>
+            <h3 >解答</h3>
+            <section
+                data-no="8"
+                data-positionx="0.8" 
+                data-positiony="0.03" 
+                data-scale="1" 
+                data-motionno="0"
+                style="text-align: left"><br><br>
+                <section data-auto-animate>
+                    <pre><code data-trim data-noescape>
+                        import math
+
+                        # 每名確診者每日能夠傳染的人數x
+                        def inflectCompute(inFect,recoverDays,protectedRate):
+                            return (inFect/recoverDays) * (1-protectedRate)
+
+                        def main():
+                            # 總人口n
+                            n = int(input())
+                            # 計算期間m
+                            period = int(input())
+                            # 第一天確診人數a
+                            initInfect = int(input())
+                            # 每位確診者在確診期間的傳染人數b
+                            RValue = float(input())
+                            # 康復天數c
+                            recoverDays = int(input())
+                            # 第一天A城市的免疫率d
+                            protectedRate = float(input())
+                            # 可以感染的人數
+                            canInfectPeople = int(n * (1-protectedRate) - initInfect)
+                            # 計算期間list設定
+                            dayAddInfect = [0] * period
+                            dayAddInfect[0] = initInfect
+                            dayTotalInfect = [0] * period
+                            dayTotalInfect[0] = initInfect
+
+                            for day in range(1,period):
+                                startDay = day - recoverDays
+                                if startDay &lt; 0:
+                                    startDay = 0
+                                    curePeople = 0
+                                elif startDay >= 0:
+                                    curePeople = dayAddInfect[startDay]
+                                # 每天的新增確診數y
+                                dayAdd = dayTotalInfect[day-1] * inflectCompute(RValue,recoverDays,protectedRate)
+                                # 無條件捨去小數
+                                dayAdd = math.floor(dayAdd)
+                                # 假設每天的新增確診數大於可傳染人數，將每天新增確診數=可傳染人數
+                                if dayAdd > canInfectPeople:
+                                    dayAdd = canInfectPeople
+                                # 可傳染人數-每天新增確診數
+                                canInfectPeople = canInfectPeople - dayAdd
+                                dayAddInfect[day] = dayAdd
+                                # 計算總確診數
+                                dayTotalInfect[day] = sum(dayAddInfect[startDay:day+1]) - curePeople
+                                # 重新計算免疫率
+                                protectedRate += curePeople/n
+                            
+                            for day in range(period):
+
+                                if day >= recoverDays:
+                                    totalCure = dayAddInfect[day-recoverDays]
+                                else:    
+                                    totalCure = 0
+                                print(day+1,dayTotalInfect[day],dayAddInfect[day],totalCure)
+
+                            print(sum(dayAddInfect))
+
+                                
+
+                        if __name__ == '__main__':
+                            main()
+                    </code></pre> 
+                </section>
+            </section>
+           </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

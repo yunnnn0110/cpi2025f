@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-22
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>22. 梭哈比大小</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;1.由N(2<=N<=5，N為整數)個玩家依序輪流拿牌。<br>
+                        <br>&emsp;&emsp;2.每人拿五張，結果依牌型由大到小輸出玩家名稱和其牌型編號，若牌型相同，依據輸入順序輸出。<br>
+                        <br>&emsp;&emsp;3.每張牌由牌面與花色組成，牌面與花色的表示如下：<br>
+                        &emsp;&emsp;&emsp;&emsp;牌面： A、2~10、J、Q、K<br>
+                        &emsp;&emsp;&emsp;&emsp;花色：S (Spade,黑桃),H (Heart,紅心),D (Diamond,方塊), C (Club,梅花)<br>
+                        &emsp;&emsp;&emsp;&emsp;例如：7S 表示黑桃7<br>
+                        <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>20. 數字矩陣</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;4.牌型編號(編號越大代表牌型越大)：<br>
+                    &emsp;&emsp;&emsp;&emsp;(1) High Card : 單一張牌。<br>
+                    &emsp;&emsp;&emsp;&emsp;(2) One pair: 兩張牌數字一樣<br>
+                    &emsp;&emsp;&emsp;&emsp;(3) Two pairs : 兩組 Pair 的牌。<br>
+                    &emsp;&emsp;&emsp;&emsp;(4) Three of a kind : 三張牌數字一樣。<br>
+                    &emsp;&emsp;&emsp;&emsp;(5) Straight : 數字連續的五張牌，頭尾相接亦視為Straight。例如[2, 3, 4, 5, 6],..,[Q,K , A, 2,
+                    3], [K , A, 2, 3, 4], [A, 2, 3, 4, 5]。<br>
+                    &emsp;&emsp;&emsp;&emsp;(6) Flush : 五張同一花色的牌<br>
+                    &emsp;&emsp;&emsp;&emsp;(7) Full House : Three of a Kind 加一個 Pair<br>
+                    &emsp;&emsp;&emsp;&emsp;(8) Four of a kind: : 四張牌數字一樣<br>
+                    &emsp;&emsp;&emsp;&emsp;(9) Straight flush : 數字連續的五張牌且花色一樣<br>
+                    <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    &emsp;&emsp;輸入說明<br>
+                    &emsp;&emsp;&emsp;&emsp;第1行，輸入整數N(2<=N<=5)<br>
+                        &emsp;&emsp;&emsp;&emsp;第2~1 +N行 輸入一字串，包含英文姓名和五張牌，中間以空格格開<br>
+                        &emsp;&emsp;範例輸入說明<br>
+                        &emsp;&emsp;&emsp;&emsp;2（N=2，玩家人數為整數2）<br>
+                        &emsp;&emsp;&emsp;&emsp;Allen 3H 4H 5H 6H 7H（玩家Allen 紅心3 紅心4 紅心5 紅心 6 紅心7）<br>
+                        &emsp;&emsp;&emsp;&emsp;Kate 9H 9D 9C 2S AS（玩家Kate 紅心9 方塊9 梅花9 黑桃2 黑桃A）<br><br>
+                        &emsp;&emsp;輸出說明<br>
+                        &emsp;&emsp;&emsp;&emsp;若所有牌不重複且輸入正確（參考 測試資料一）<br><br>
+                        &emsp;&emsp;&emsp;&emsp;則依牌型由大到小輸出玩家名稱和其牌型編號，中間以空格隔開。<br>
+                        &emsp;&emsp;&emsp;&emsp;若牌型相同，依據玩家輸入順序輸出。<br>
+                        &emsp;&emsp;&emsp;&emsp;第一行 牌型最大的玩家姓名+” ”+玩家牌型編號<br>
+                        &emsp;&emsp;&emsp;&emsp;第二行 牌型第二大的玩家姓名+” ”+玩家牌型編號<br>
+                        &emsp;&emsp;&emsp;&emsp;第N行 牌型最小的玩家姓名+” ”+玩家牌型編號<br>
+                        &emsp;&emsp;範例輸出說明<br>
+                        &emsp;&emsp;&emsp;&emsp;Allen 9 （玩家Allen 對應牌型為編號9的Straight flush）<br>
+                        &emsp;&emsp;&emsp;&emsp;Kate 4 （玩家Kate 對應牌型為編號4的Three of a kind）<br>
+                </section>
+            </section>
+
+            <section>
+                <h3>特殊要求</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    &emsp;&emsp;1.如果一副牌中有不合法的輸入，像是不存在的牌面、花色，則輸出 "Error input"(參考 測試資料二)<br><br>
+                    &emsp;&emsp;2.如果一副牌中有重複的牌出現，即一副牌當中有兩張以上牌面跟花色一模一樣，則輸出"Duplicate deal"(參考 測試資料三）<br><br>
+                    &emsp;&emsp;3.如果"Error input"和"Duplicate deal"同時發生，則輸出"Error input"(參考 測試資料四)<br><br>
+                </section>
+            </section>
+
+            <section>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%;">
+                        <tr>
+                            <th>輸入輸出範例</th>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>測試資料一</td>
+                            <td>
+                                4<br>Gery 6D 7C 7S 3H 10S<br>Mandy 4H 4D 4C 2D 4S<br>Tommy QH KD AC 5D 3S<br>Nina 10D 8C
+                                8S 8H 10H
+                            </td>
+                            <td>
+                                Mandy 8<br>Nina 7<br>Gery 2<br>Tommy 1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>測試資料二</td>
+                            <td>
+                                3<br>Ray 5H AS 9C QC 3DD<br>Kate JC KH 9D 6H 9S<br>Peter 4C 5D 2S 9D 2C
+                            </td>
+                            <td>
+                                Error input
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>測試資料三</td>
+                            <td>
+                                4<br>Kevin AD 2C 3C 4D 4D<br>Tom 7S 8S 9S 9C 6S<br>Andy QH 8D KH 4H JH<br>Joe AS 2S 3C
+                                4S 5S
+                            </td>
+                            <td>
+                                Duplicate deal
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>測試資料四</td>
+                            <td>
+                                2<br>Tony 6H KC 5C 3D MZ<br>Maze 5H 5D 5C 6C 5S
+                            </td>
+                            <td>
+                                Error input
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>Tips</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    &emsp;&emsp;把各種牌型判斷寫成function<br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape>
+                                #得到所有玩家牌型
+                                def getType(list1):
+
+                                #根據玩家牌型做排序
+                                def SortList(list1,list2):
+
+                                #判斷玩家牌型
+                                def getPlayerType(list):
+
+                                #判斷花色是否一樣
+                                def SameSuite(list):
+                                
+                                #判斷數字是否連續
+                                def Straight(list):
+
+                                #判斷pair的數量
+                                def Pairnum(list):
+
+                                #判斷三張牌數字一樣
+                                def ThreeOfKindnum(list):
+
+                                #判斷四張牌數字一樣
+                                def FourOfKindnum(list):
+
+                                #將撲克牌表示轉成數值
+                                def pureFace(list):
+                            </code></pre>
+                    </section>
+                </section>
+            </section>
+            </section>
+
+            <section>
+                <h3>解答</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape data-line-numbers="|1-17|3-4|19-27|5-7|29-37|53-63|8-10|39-51|11-12|65-70|91-112|114-120|122-131|133-151|153-171|173-187|189-212|13-16|72-89|">
+                    # 主程式
+                    def func():
+                        #輸入每個人的手牌
+                        list1=initinput()
+                        #判斷有沒有不合法的輸入
+                        if(FindInputError(list1)):
+                            return 0
+                        #判斷Input有沒有Duplicate
+                        if(FindDuplicateError(list1)):
+                            return 0
+                        #得到所有玩家牌型
+                        players_type=getType(list1)
+                        #根據玩家牌型做排序
+                        sorted_types=SortList(list1,players_type)
+                        for i in range(len(sorted_types)):
+                            print(str(sorted_types[i][0])+" "+str(sorted_types[i][1]))
+                        return 1
+
+                    #輸入每個人的手牌
+                    def initinput():
+                        num=int(input())
+                        list1=[]
+                        for i in range(num):
+                            a=input()
+                            list_temp=a.split(" ")
+                            list1.append(list_temp)
+                        return list1
+
+                    def FindInputError(list):
+                        for i in range(len(list)):
+                            if(len(list[i])!=6):
+                                print("Error input")
+                                return True
+                            if(FindEachPlayerInputError(list[i][1:])):
+                                print("Error input")
+                                return True
+                        return False
+
+                    def FindDuplicateError(list):
+                        for i in range(len(list)):
+                            for j in range(1,len(list[i])):
+                                temp=list[i][j]
+                                # print("temp: "+temp)
+                                for k in range(i,len(list)):
+                                    for l in range(1,len(list[k])):
+                                        if((k!=i)or(j!=l)):
+                                            # print(list[k][l])
+                                            if(temp==list[k][l]):
+                                                print("Duplicate deal")
+                                                return True
+                        return False
+
+                    def FindEachPlayerInputError(list):
+                        for i in range(0,len(list)):
+                            if(len(list[i])==3):
+                                if((list[i][:2]!="10")or(list[i][-1] not in "SHDC")):
+                                    return True
+                            elif(len(list[i])==2):
+                                if((list[i][0] not in "A23456789JQK") or (list[i][1] not in "SHDC")):
+                                    return True
+                            else:
+                                return True
+                        return  False
+
+                    #得到所有玩家牌型
+                    def getType(list1):
+                        result=[]
+                        for i in range(len(list1)):
+                            result.append(getPlayerType(list1[i][1:]))
+                        return  result
+
+                    #根據玩家牌型做排序
+                    def SortList(list1,list2):
+                        result=[]
+                        for i in range(len(list1)):
+                            temp=[]
+                            temp.append(list1[i][0])
+                            temp.append(list2[i])
+                            result.append(temp)
+                        for i in range(0,len(result)):
+                            for j in range(i+1,len(result)):
+                                if(result[i][1]&lt;result[j][1]):
+                                    result[i][1]+=result[j][1]
+                                    result[j][1]=result[i][1]-result[j][1]
+                                    result[i][1]-=result[j][1]
+                                    temp2=result[i][0]
+                                    result[i][0]=result[j][0]
+                                    result[j][0]=temp2
+                        return result
+
+                    #判斷玩家牌型
+                    def getPlayerType(list):
+                        if(SameSuite(list)):
+                            if(Straight(list)):
+                                return 9
+                            else:
+                                return 6
+                        elif(FourOfKindnum(list)==1):
+                            return 8
+                        elif(ThreeOfKindnum(list)==1):
+                            if(Pairnum(list)==1):
+                                return 7
+                            else:
+                                return 4
+                        elif(Straight(list)):
+                            return 5
+                        elif(Pairnum(list)==2):
+                            return 3
+                        elif(Pairnum(list)==1):
+                            return 2
+                        else:
+                            return 1
+
+                    #判斷花色是否一樣
+                    def SameSuite(list):
+                        temp=list[0][-1]
+                        for i in range(1,len(list)):
+                            if(temp!=list[i][-1]):
+                                return False
+                        return True
+
+                    #判斷數字是否連續
+                    def Straight(list):
+                        Face_list=pureFace(list)
+                        recent_Face=Face_list[0]
+                        for i in range(1,len(Face_list)):
+                            temp=Face_list[i]-recent_Face
+                            if((temp!=1)and(temp!=9)):
+                                return False
+                            recent_Face=Face_list[i]
+                        return True
+
+                    #判斷pair的數量
+                    def Pairnum(list):
+                        num=0
+                        Face_list=pureFace(list)
+                        recent_Face=Face_list[0]
+                        exit_time=0
+                        for i in range(1,len(Face_list)):
+                            if(recent_Face==Face_list[i]):
+                                exit_time+=1
+                                if(exit_time==1):
+                                    num+=1
+                            else:
+                                if(exit_time&gt;1):
+                                    num-=1
+                                recent_Face=Face_list[i]
+                                exit_time=0
+                        if(exit_time>1):
+                            num-=1
+                        return num
+
+                    #判斷三張牌數字一樣
+                    def ThreeOfKindnum(list):
+                        num=0
+                        Face_list=pureFace(list)
+                        recent_Face=Face_list[0]
+                        exit_time=0
+                        for i in range(1,len(Face_list)):
+                            if(recent_Face==Face_list[i]):
+                                exit_time+=1
+                                if(exit_time==2):
+                                    num+=1
+                            else:
+                                if(exit_time>2):
+                                    num-=1
+                                recent_Face=Face_list[i]
+                                exit_time=0
+                        if(exit_time>2):
+                            num-=1
+                        return num
+
+                    #判斷四張牌數字一樣
+                    def FourOfKindnum(list):
+                        num=0
+                        Face_list=pureFace(list)
+                        recent_Face=Face_list[0]
+                        exit_time=0
+                        for i in range(1,len(Face_list)):
+                            if(recent_Face==Face_list[i]):
+                                exit_time+=1
+                                if(exit_time==3):
+                                    num+=1
+                            else:
+                                recent_Face=Face_list[i]
+                                exit_time=0
+                        return num
+
+                    #將撲克牌表示轉成數值
+                    def pureFace(list):
+                        result=[]
+                        for i in range(0,len(list)):
+                            if(len(list[i])==3):
+                                result.append(10)
+                            else:
+                                if(list[i][0]=="A"):
+                                    result.append(14)
+                                elif(list[i][0]=="J"):
+                                    result.append(11)
+                                elif(list[i][0]=="Q"):
+                                    result.append(12)
+                                elif(list[i][0]=="K"):
+                                    result.append(13)
+                                else:
+                                    result.append(int(list[i][0]))
+                        for i in range(len(result)):
+                            for l in range(i+1,len(result)):
+                                if(result[i]>result[l]):
+                                    result[i]+=result[l]
+                                    result[l]=result[i]-result[l]
+                                    result[i]-=result[l]
+                        return result
+
+
+                    if __name__=='__main__':
+                        func()
+                    </code></pre>
+                    </section>
+                </section>
+            </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

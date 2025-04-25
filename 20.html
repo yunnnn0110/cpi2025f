@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-20
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>20. 數字矩陣</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;給定一個正整數n，產生一個n*n的初始矩陣。初始矩陣中每個元素為一個數字，從1開始，由左到右、由上往下增加。例如：<br>
+                    &emsp;&emsp;&emsp;&emsp;n = 4 的初始矩陣<br>
+                    &emsp;&emsp;&emsp;&emsp;1 2 3 4<br>
+                    &emsp;&emsp;&emsp;&emsp;5 6 7 8<br>
+                    &emsp;&emsp;&emsp;&emsp;9 10 11 12<br>
+                    &emsp;&emsp;&emsp;&emsp;13 14 15 16<br>
+                    <br>&emsp;&emsp;輸入n後，需要再輸入一串由L、R組成的字串，字串由左到右進行讀取，每次讀取一個字元。<br>
+                    <br>&emsp;&emsp;L表示將整個矩陣往逆時針轉90度，R表示將整個矩陣往順時針轉90度<br>
+                    <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>20. 數字矩陣</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;下面是n = 4 的初始矩陣讀取到L，往逆時針翻轉90度的範例：<br>
+                    &emsp;&emsp;&emsp;&emsp;4 8 12 16<br>
+                    &emsp;&emsp;&emsp;&emsp;3 7 11 15<br>
+                    &emsp;&emsp;&emsp;&emsp;2 6 10 14<br>
+                    &emsp;&emsp;&emsp;&emsp;1 5 9 13<br>
+                    <br>&emsp;&emsp;下面是n = 4 的初始矩陣讀取到R，往順時針翻轉90度的範例：<br>
+                    &emsp;&emsp;&emsp;&emsp;13 9 5 1<br>
+                    &emsp;&emsp;&emsp;&emsp;14 10 6 2<br>
+                    &emsp;&emsp;&emsp;&emsp;15 11 7 3<br>
+                    &emsp;&emsp;&emsp;&emsp;16 12 8 4<br>
+                    <br>&emsp;&emsp;當字串讀取完成後，輸出翻轉後的矩陣。<br>
+                    <br>&emsp;&emsp;※注意，僅需要輸出完成所有翻轉後的結果，無需顯示過程<br>
+
+                    <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    &emsp;&emsp;輸入說明<br>
+                    &emsp;&emsp;&emsp;&emsp;第一行：輸入一個正整數n，表示n*n的矩陣（2 &lt;= n &lt;= 5）<br>
+                    &emsp;&emsp;&emsp;&emsp;第二行：輸入由L、R組成的字串，長度&lt;=10。字串由左到右讀取每個字<br>
+                    &emsp;&emsp;&emsp;&emsp;元，當讀取到L時將矩陣向逆時針翻轉90度，讀取到R時將矩陣向順時針翻<br>
+                    &emsp;&emsp;&emsp;&emsp;轉90度。<br><br>
+                    &emsp;&emsp;輸出說明<br>
+                    &emsp;&emsp;&emsp;&emsp;輸出一個矩陣，為初始矩陣經過翻轉後的結果。<br><br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例解釋</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+
+                    &emsp;&emsp;輸入範例說明<br><br>
+                    &emsp;&emsp;&emsp;&emsp;3<br>
+                    &emsp;&emsp;&emsp;&emsp;# 表示一個3*3的初始矩陣，如下：<br>
+                    &emsp;&emsp;&emsp;&emsp;# 1 2 3<br>
+                    &emsp;&emsp;&emsp;&emsp;# 4 5 6<br>
+                    &emsp;&emsp;&emsp;&emsp;# 7 8 9<br><br>
+                    &emsp;&emsp;&emsp;&emsp;RRL<br>
+                    &emsp;&emsp;&emsp;&emsp;# 表示對初始矩陣進行以下操作<br>
+                    &emsp;&emsp;&emsp;&emsp;# 1. R , 向順時針轉90度<br>
+                    &emsp;&emsp;&emsp;&emsp;# 7 4 1<br>
+                    &emsp;&emsp;&emsp;&emsp;# 8 5 2<br>
+                    &emsp;&emsp;&emsp;&emsp;# 9 6 3<br><br>
+                    &emsp;&emsp;&emsp;&emsp;# 2. R , 向順時針轉90度<br>
+                    &emsp;&emsp;&emsp;&emsp;# 9 8 7<br>
+                    &emsp;&emsp;&emsp;&emsp;# 6 5 4<br>
+                    &emsp;&emsp;&emsp;&emsp;# 3 2 1<br><br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例解釋</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    &emsp;&emsp;&emsp;&emsp;# 3. L , 向逆時針轉90度<br>
+                    &emsp;&emsp;&emsp;&emsp;# 7 4 1<br>
+                    &emsp;&emsp;&emsp;&emsp;# 8 5 2<br>
+                    &emsp;&emsp;&emsp;&emsp;# 9 6 3<br><br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                3<br>LLL
+                            </td>
+                            <td>
+                                7 4 1<br>8 5 2<br>9 6 3
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                4<br>LRLRRL
+                            </td>
+                            <td>
+                                1 2 3 4<br>5 6 7 8<br>9 10 11 12<br>13 14 15 16
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                5<br>RLLLRLLR
+                            </td>
+                            <td>
+                                25 24 23 22 21<br>20 19 18 17 16<br>15 14 13 12 11<br>10 9 8 7 6<br>5 4 3 2 1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                4<br>RLRRRLR
+                            </td>
+                            <td>
+                                4 8 12 16<br>3 7 11 15<br>2 6 10 14<br>1 5 9 13
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>Tips</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    &emsp;&emsp;往右轉1次 = 往左轉3次<br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape>
+                                # 計算往左轉幾次
+                                def conutLnum(cmdStr:str):
+                                    #往右轉1次 = 往左轉3次，這樣總和後得出除4的餘數就能知道矩陣會在哪個方位了
+
+                                #根據矩陣在哪個方位再Print
+                                def printMatrix(n,lNum):
+                                    #code
+                            </code></pre>
+                    </section>
+                </section>
+            </section>
+            </section>
+
+            <section>
+                <h3>解答</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape data-line-numbers="|30-37|1-5|8-13|14-18|19-23|24-28|">
+                        # 計算往左轉幾次
+                        def conutLnum(cmdStr:str):
+                            #往右轉1次 = 往左轉3次，這樣總和後得出除4的餘數就能知道矩陣會在哪個方位了
+                            lNum = (cmdStr.count("L") + cmdStr.count("R")*3) % 4
+                            return lNum 
+
+                        #根據矩陣在哪個方位再Print
+                        def printMatrix(n,lNum):
+                            if lNum == 0:
+                                for i in range(1,n*n+1,n):
+                                    for j in range(0,n):
+                                        print(i+j,end=' ')
+                                    print()
+                            elif lNum == 1:
+                                for i in range(n,0,-1):
+                                    for j in range(0,n*n,n):
+                                        print(i+j,end=' ')
+                                    print()
+                            elif lNum == 2:
+                                for i in range(n*n,0,-n):
+                                    for j in range(n):
+                                        print(i-j,end=' ')
+                                    print()
+                            elif lNum == 3:
+                                for i in range(n*n-n+1,n*n+1):
+                                    for j in range(0,n*n,n):
+                                        print(i-j,end=' ')
+                                    print()
+
+                        def main():
+                            n = int(input())
+                            cmdStr = str(input())
+                            lNum = conutLnum(cmdStr)
+                            printMatrix(n,lNum)
+
+                        if __name__ == '__main__':
+                            main()
+                    </code></pre>
+                    </section>
+                </section>
+            </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

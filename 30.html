@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-30
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>30. 數位電路模擬II</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    模擬一個數位IC，內有回饋電路與紀錄器電路。<br>
+                    輸入N 是二進位 10 位元，輸出是二進位 14 位元。<br>
+                    輸入範圍從 0000000000到 1111111111 (十進位 0~1023)<br>
+                    <br>數位IC內有一個回饋電路，回饋方式：<br>
+                    &emsp;&emsp;C(N) = N 當 N(十進位) 為 0 或 N為 1 時<br>
+                    &emsp;&emsp;C(N) = C(N/2) 當 N(十進位) 為偶數 <br>
+                    &emsp;&emsp;C(N) = C((N+1)/2) 當 N(十進位) 為奇數 <br>
+                    <br>數位IC內有一個紀錄器 R，會記錄回饋電路的回饋次數。<br>
+                    R(N) = [C(N) 的回饋次數]。例如 N=00001010 (十進位 10)，<br>
+                    即 C(10)= C(5)=C(3)=C(2)=C(1)=1，則 R(10) = 4，共回饋 4 次。<br>
+                    <br>此電路另有一個紀錄器 T，會加總所跑過的0~N次電路回饋次數，<br>
+                    即 T(N) = R(0) + R(1) +...+ R(N)。<br>
+                    以二進位制輸出所有回饋次數加總後的結果。<br>
+                    例如 T(10) = R(0)+R(1)+R(2)+R(3)+R(4)+...+R(10) = 00000000011001(十進位為 25)。<br>
+                    <br>當輸入 -1時，結束執行。<br>
+                    <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    輸入說明<br>
+                    &emsp;&emsp;第1行輸入第1個測試案例資料（二進位 10 bit）<br>
+                    &emsp;&emsp;第2行輸入第2個測試案例資料（二進位 10 bit）<br>
+                    &emsp;&emsp;....<br>
+                    &emsp;&emsp;直到輸入 -1 結束<br>
+                    範例輸入說明：<br>
+                    &emsp;&emsp;0000000011（十進位3）<br>
+                    &emsp;&emsp;-1<br>
+                    輸出說明：<br>
+                    &emsp;&emsp;每一行輸出一個測試案例資料的結果（二進位 14 bit）。<br>
+                    輸出範例說明：<br>
+                    &emsp;&emsp;00000000000011 （T(3) = R(0) + R(1) + R(2) + R(3) = 0 + 0 + 1 + 2 = 3）<br>
+                </section>
+            </section>
+
+            <section>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 100%; font-size: 20px;">
+                        <tr>
+                            <th>輸入輸出範例</th>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>測試資料一</td>
+                            <td>
+                                0000000000<br>1111111111<br>1010101010<br>-1
+                            </td>
+                            <td>
+                                00000000000000<br>10001111110111<br>01011010100101
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>測試資料二</td>
+                            <td>
+                                1011101110<br>1010010110<br>0111111110<br>0110101010<br>-1
+                            </td>
+                            <td>
+                                01100101001101<br>01010111011101<br>00111111101111<br>00110011111011
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>測試資料三</td>
+                            <td>
+                                1010101010<br>0101010101<br>1011001101<br>1100100110<br>1011101010<br>-1
+                            </td>
+                            <td>
+                                01011010100101<br>00100111111110<br>01100000000011<br>01101101111101<br>01100100100101
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>Tips</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape>
+                              # 將輸入轉成二進制
+                              int(str,2)
+
+                              #將輸出轉成二進制
+                              bin(num)
+
+                              #將二進制調成固定長度
+                              .zfill(len)
+                          </code></pre>
+                    </section>
+                </section>
+            </section>
+            </section>
+
+            <section>
+                <h3>解答</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape>
+                        def T(n):
+                            result = 0
+                            for i in range(0,n+1):
+                                result += R(i)
+                            return result
+
+                        def R(n):
+                            return C(n,0)
+
+                        def C(n,depth):
+                            if(n &lt; 2):
+                                return depth
+                            elif n % 2 :
+                                return C((n+1)//2,depth + 1)
+                            else:
+                                return C(n//2,depth + 1)
+
+                        def main():
+                            binStr = input()
+                            resultLen = 14
+                            while True:
+                                if binStr == "-1":
+                                    break
+                                else:
+                                    num = int(binStr,2)
+                                    # 去掉前綴0b 並使用 zfill 方法填充至14位
+                                    print(bin(T(num))[2:].zfill(resultLen))
+                                    binStr = input()
+
+                        if __name__ == "__main__":
+                            main()
+                    </code></pre>
+                    </section>
+                </section>
+            </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

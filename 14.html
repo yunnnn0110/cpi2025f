@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-14
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+        table, th, td {
+            border:1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>14. 保齡球(進階版)</h3>
+                <section 
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;小明到保齡球館打保齡球,一輪有十局,假設小明一到八局都拿零分,剩下最後兩局<br>
+                    &emsp;&emsp;，試算總分，保齡球規則如下:<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(1)每局有10個保齡球瓶，擊倒1個球瓶得1分<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(2)每局最多有兩次投球機會<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(3)當局如果第一球將10個保齡球瓶全部擊倒(稱為strike)，當局只有一
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;次投球機會，此局計分除了10分外，再加上後面兩球擊倒的球瓶數。<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(4)當局如果第一球未將10個保齡球瓶全部擊倒，但加上第二球則將10
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;個保齡球瓶全部擊倒(稱為spare)，此局計分除了10分外，再加上後面
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;一球擊倒的球瓶數。<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(5)當局若兩球都無法將球瓶全部擊倒，
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;此局計分為兩球擊倒的球瓶數。<br>
+               <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>10. 保齡球</h3>
+                <section 
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(6)第10局如果第一球將球瓶全部擊倒，後面還有2次投球機會。<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(7)第10局如果第二球才將球瓶全部擊倒，後面還有1次投球機會。<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(8)第10局若兩球都無法將球瓶全部擊倒，則結束比賽。<br>
+                    <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(9)總分為10局分數總合。<br>
+               <br>
+                </section>
+            </section>
+
+            <section>
+              <h3>輸入輸出說明</h3>
+              <section 
+              data-no="6"
+               data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                  style="text-align: left"><br>
+                  &emsp;&emsp;輸入說明<br>
+                  &emsp;&emsp;&emsp;&emsp;第1局第一球分數 (int,0~10)<br><br>
+                  &emsp;&emsp;&emsp;&emsp;第1局第二球分數 (上一球為10則省略) (int,和上一球總和最多為10)<br>
+                  &emsp;&emsp;&emsp;&emsp;.<br>
+                  &emsp;&emsp;&emsp;&emsp;.<br>
+                  &emsp;&emsp;&emsp;&emsp;第9局第一球分數 (int,0~10)<br><br>
+                  &emsp;&emsp;&emsp;&emsp;第9局第二球分數 (上一球為10則省略) (int,和上一球總和最多為10)<br><br>
+                  &emsp;&emsp;&emsp;&emsp;第10局第一球分數 (int,0~10)<br><br>
+                  &emsp;&emsp;&emsp;&emsp;第10局第二球分數 (上一球為10則省略) (int,和上一球總和最多為10)<br><br>
+                  &emsp;&emsp;&emsp;&emsp;第一次額外投球分數(第10局投球總分為10才輸入) (int,0~10)<br><br>
+                  &emsp;&emsp;&emsp;&emsp;第二次額外投球分數(第10局第一球為10才輸入) (int,0~10)<br><br>
+                  &emsp;&emsp;輸出說明<br>
+                  &emsp;&emsp;&emsp;&emsp;總分 (int)<br>
+              </section>
+          </section>
+
+          <section>
+            <h3>輸入輸出範例解釋</h3>
+            <section 
+            data-no="6"
+             data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                style="text-align: left"><br>
+
+                &emsp;&emsp;輸入範例說明<br><br>
+                &emsp;&emsp;&emsp;&emsp;5(第1局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;5(第1局第二球)<br>
+                &emsp;&emsp;&emsp;&emsp;(因為spare，第一局分數為該局投球得分加下一次投球分數，為13分)<br>
+                &emsp;&emsp;&emsp;&emsp;3(第2局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;2(第2局第二球<br>
+                &emsp;&emsp;&emsp;&emsp;(第二局分數為該局得分，為5分)<br>
+                &emsp;&emsp;&emsp;&emsp;6(第3局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;4(第3局第二球)<br>
+                &emsp;&emsp;&emsp;&emsp;(因為spare，第三局分數為該局投球得分加下一次投球分數，為20分)<br>
+                &emsp;&emsp;&emsp;&emsp;10(第4局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;(因為strike，第四局分數為該局投球得分加下二次投球分數，為19分)<br>
+                &emsp;&emsp;&emsp;&emsp;7(第5局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;2(第5局第二球)<br>
+                &emsp;&emsp;&emsp;&emsp;(第五局分數為該局投球得分，為9分)<br>               
+            </section>
+        </section>
+
+        <section>
+            <h3>輸入輸出範例解釋</h3>
+            <section 
+            data-no="6"
+             data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                style="text-align: left"><br>
+                &emsp;&emsp;輸入範例說明<br><br>
+                &emsp;&emsp;&emsp;&emsp;9(第6局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;1(第6局第二球)<br>
+                &emsp;&emsp;&emsp;&emsp;(因為spare，第六局分數為該局投球得分加下一次投球分數，為20分)<br>
+                &emsp;&emsp;&emsp;&emsp;10(第7局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;(因為strike，第七局分數為該局投球得分加下二次投球分數，為20分)<br>
+                &emsp;&emsp;&emsp;&emsp;8(第8局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;2(第8局第二球)<br>
+                &emsp;&emsp;&emsp;&emsp;(因為spare，第八局分數為該局投球得分加下一次投球分數，為16分)<br>
+                &emsp;&emsp;&emsp;&emsp;6(第9局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;2(第9局第二球)<br>
+                &emsp;&emsp;&emsp;&emsp;(第九局分數為該局投球得分，為8分)<br>
+                &emsp;&emsp;&emsp;&emsp;10(第10局第一球)<br>
+                &emsp;&emsp;&emsp;&emsp;(因為strike，第十局分數為該局投球得分加下二次投球分數，為18分)<br>
+                &emsp;&emsp;&emsp;&emsp;0(因為第10局第一次就全倒，第一次額外投球)<br>
+                &emsp;&emsp;&emsp;&emsp;8(因為第10局第一次就全倒，第二次額外投球)<br>         
+            </section>
+        </section>
+
+        <section>
+            <h3>輸入輸出範例解釋</h3>
+            <section 
+            data-no="6"
+             data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                style="text-align: left"><br>
+                &emsp;&emsp;輸出範例說明<br>
+                &emsp;&emsp;&emsp;&emsp;148 (每局分數總和。為13+5+20+19+20+20+16+8+18)<br>
+                &emsp;&emsp;&emsp;&emsp;<img style="width:1800px;" src="img/14/14.png">             
+            </section>
+        </section>
+
+            <section>
+                <h3>保齡球 輸入輸出範例-1</h3>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>
+                            2<br>5<br>7<br>1<br>3<br>4<br>6<br>2<br>4<br>3<br>5<br>1<br>6<br>3<br>7<br>2<br>8<br>1<br>3<br>5
+                          </td>
+                          <td>
+                            78
+                          </td>
+                        </tr>
+                      </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>保齡球 輸入輸出範例-1</h3>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                      &emsp;&emsp;&emsp;&emsp;<img style="width:1800px;" src="img/14/14-2.png">
+                </section>
+            </section>
+
+            <section>
+                <h3>保齡球 輸入輸出範例-2</h3>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>
+                            2<br>5<br>7<br>1<br>3<br>4<br>6<br>2<br>4<br>3<br>5<br>1<br>6<br>3<br>7<br>2<br>8<br>1<br>3<br>5
+                          </td>
+                          <td>
+                            78
+                          </td>
+                        </tr>
+                      </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>保齡球 輸入輸出範例-2</h3>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                      &emsp;&emsp;&emsp;&emsp;<img style="width:1800px;" src="img/14/14-3.png">
+                </section>
+            </section>
+
+            <section>
+                <h3>保齡球 輸入輸出範例-3</h3>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                          <th>Input</th>
+                          <th>Output</th>
+                        </tr>
+                        <tr>
+                          <td>
+                            10<br>5<br>5<br>10<br>2<br>8<br>10<br>4<br>6<br>10<br>7<br>3<br>10<br>1<br>9<br>10
+                          </td>
+                          <td>
+                            200
+                          </td>
+                        </tr>
+                      </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>保齡球 輸入輸出範例-3</h3>
+                <section
+                data-no="6"
+                 data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                      &emsp;&emsp;&emsp;&emsp;<img style="width:1800px;" src="img/14/14-4.png">
+                </section>
+            </section>
+
+            <section>
+                <h3>Tips</h3>
+                    <section
+                        data-no="8"
+                        data-positionx="0.8" 
+                        data-positiony="0.03" 
+                        data-scale="1" 
+                        data-motionno="0"
+                        style="text-align: left"><br><br>
+                        <section data-auto-animate>
+                            <pre><code data-trim data-noescape>
+                              def spare(ball1,ball2):
+                                #
+                                # Spare判斷
+                                #
+                              
+                              def strike(ball):
+                                #
+                                # Strike判斷
+                                #
+                              
+                              def bonustime(roun10_state):
+                                #
+                                # 額外投球機會
+                                #
+
+                              def addAnotherPoint(ball1,ball2,remainTime,addedround_point):
+                                #
+                                # 額外加分
+                                #
+
+                              def startGame():
+                                #第一局
+                                #第二局
+                                #第一局額外加分
+                                #第三局
+                                #第二局額外加分
+                                #第一、二局strike時的第一局額外加分
+                                #.
+                                #.
+                                #第九局
+                                #第十局
+                                #第九局額外加分
+                                #額外投球機會
+                                #第十局額外加分
+                                #第九、十局Strike的第九局額外得分
+                            </code></pre> 
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+          <section>
+            <h3 >解答</h3>
+            <section
+                data-no="8"
+                data-positionx="0.8" 
+                data-positiony="0.03" 
+                data-scale="1" 
+                data-motionno="0"
+                style="text-align: left"><br><br>
+                <section data-auto-animate>
+                    <pre><code data-trim data-noescape data-line-numbers="|54-119|">
+                        #Spare判斷
+                        def spare(ball1,ball2):
+                          if(ball1+ball2)==10:
+                            return True
+                          return False
+                        
+                        #Strike判斷
+                        def strike(ball):
+                          if ball==10:
+                            return True
+                          return False
+                        
+                        #玩一局
+                        def oneround():
+                          score=0
+                          ball1=int(input())
+                          score+=ball1
+                          if strike(ball1):
+                            return 2,ball1,-1,score
+                          ball2=int(input())
+                          score+=ball2
+                          if spare(ball1,ball2):
+                            return 1,ball1,ball2,score
+                          return 0,ball1,ball2,score
+                        
+                        #額外投球機會
+                        def bonustime(roun10_state):
+                          if roun10_state==1:
+                            ball1=int(input())
+                            return ball1,-1
+                          elif roun10_state==2:
+                            ball1=int(input())
+                            ball2=int(input())
+                            return ball1,ball2
+                          return 0,0
+                        
+                        #額外加分
+                        def addAnotherPoint(ball1,ball2,remainTime,addedround_point):
+                          if(ball2==-1):
+                            if(remainTime>0):
+                              addedround_remainaddedtime,addedround_score= remainTime-1,ball1+addedround_point
+                            else:
+                              addedround_remainaddedtime,addedround_score=0,addedround_point
+                          else:
+                            if(remainTime==2):
+                              addedround_remainaddedtime,addedround_score= 0,ball1+ball2+addedround_point
+                            elif(remainTime==1):
+                              addedround_remainaddedtime,addedround_score= 0,ball1+addedround_point
+                            else:
+                              addedround_remainaddedtime,addedround_score=0,addedround_point
+                        
+                          return addedround_remainaddedtime,addedround_score
+                        
+                        def startGame():
+                          # 初始化
+                          all_state = [0]*10
+                          all_score=[0]*12
+                          # 第一局
+                          all_state[0],ball1,ball2,all_score[0]=oneround()
+                          # 第二局
+                          all_state[1],ball1,ball2,all_score[1]=oneround()
+                          # 第一局額外加分
+                          all_state[0],all_score[0]=addAnotherPoint(ball1,ball2,all_state[0],all_score[0])
+                          # 第三局
+                          all_state[2], ball1, ball2, all_score[2] = oneround()
+                          # 第二局額外加分
+                          all_state[1], all_score[1] = addAnotherPoint(ball1, ball2, all_state[1], all_score[1])
+                          # 第一、二局strike時的第一局額外加分
+                          all_state[0], all_score[0] = addAnotherPoint(ball1, ball2, all_state[0], all_score[0])
+                          # 第四局
+                          all_state[3], ball1, ball2, all_score[3] = oneround()
+                          # 第三局額外加分
+                          all_state[2], all_score[2] = addAnotherPoint(ball1, ball2, all_state[2], all_score[2])
+                          # 第二、三局strike時的第二局額外加分
+                          all_state[1], all_score[1] = addAnotherPoint(ball1, ball2, all_state[1], all_score[1])
+                          # 第五局
+                          all_state[4], ball1, ball2, all_score[4] = oneround()
+                          # 第四局額外加分
+                          all_state[3], all_score[3] = addAnotherPoint(ball1, ball2, all_state[3], all_score[3])
+                          # 第三、四局strike時的第三局額外加分
+                          all_state[2], all_score[2] = addAnotherPoint(ball1, ball2, all_state[2], all_score[2])
+                          # 第六局
+                          all_state[5], ball1, ball2, all_score[5] = oneround()
+                          # 第五局額外加分
+                          all_state[4], all_score[4] = addAnotherPoint(ball1, ball2, all_state[4], all_score[4])
+                          # 第四、五局strike時的第四局額外加分
+                          all_state[3], all_score[3] = addAnotherPoint(ball1, ball2, all_state[3], all_score[3])
+                          # 第七局
+                          all_state[6], ball1, ball2, all_score[6] = oneround()
+                          # 第六局額外加分
+                          all_state[5], all_score[5] = addAnotherPoint(ball1, ball2, all_state[5], all_score[5])
+                          # 第五、六局strike時的第五局額外加分
+                          all_state[4], all_score[4] = addAnotherPoint(ball1, ball2, all_state[4], all_score[4])
+                          # 第八局
+                          all_state[7], ball1, ball2, all_score[7] = oneround()
+                          # 第七局額外加分
+                          all_state[6], all_score[6] = addAnotherPoint(ball1, ball2, all_state[6], all_score[6])
+                          # 第六、七局strike時的第六局額外加分
+                          all_state[5], all_score[5] = addAnotherPoint(ball1, ball2, all_state[5], all_score[5])
+                          # 第九局
+                          all_state[8], ball1, ball2, all_score[8] = oneround()
+                          # 第八局額外加分
+                          all_state[7], all_score[7] = addAnotherPoint(ball1, ball2, all_state[7], all_score[7])
+                          # 第七、八局strike時的第七局額外加分
+                          all_state[6], all_score[6] = addAnotherPoint(ball1, ball2, all_state[6], all_score[6])
+                          # 第十局
+                          all_state[9], ball1, ball2, all_score[9] = oneround()
+                          # 第九局額外加分
+                          all_state[8], all_score[8] = addAnotherPoint(ball1, ball2, all_state[8], all_score[8])
+                          # 第八、九局strike時的第八局額外加分
+                          all_state[7], all_score[7] = addAnotherPoint(ball1, ball2, all_state[7], all_score[7])
+                          # 第十局的額外投球機會
+                          ball1,ball2=bonustime(all_state[9])
+                          # 第十局額外加分
+                          all_state[9], all_score[9] = addAnotherPoint(ball1, ball2, all_state[9], all_score[9])
+                          #第九、十局Strike時的第九局額外得分
+                          all_state[8], all_score[8] = addAnotherPoint(ball1, ball2, all_state[8], all_score[8])
+                          # print(all_score)
+                          return all_score[0]+all_score[1]+all_score[2]+all_score[3]+all_score[4]+all_score[5]+all_score[6]+all_score[7]+all_score[8]+all_score[9]
+                        
+                        def main():
+                          score=startGame()
+                          print("%d"%score)
+                        
+                        if __name__=='__main__':
+                          main()
+                    </code></pre> 
+                </section>
+            </section>
+           </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1900">
+    <title>o-18
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="vendor/reveal/reset.css">
+    <link rel="stylesheet" href="vendor/reveal/reveal.css">
+    <link rel="stylesheet" href="vendor/reveal/theme/sky.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="vendor/reveal/plugin/highlight/zenburn.css">
+    <!--edit-->
+    <!-- Pollyfill script -->
+    <script src="https://unpkg.com/core-js-bundle@3.6.1/minified.js"></script>
+    <!-- Live2DCubismCore script -->
+    <script src="./dist/live2dcubismcore.js"></script>
+    <!-- Build script -->
+    <script src="./dist/bundle.js"></script>
+    <style>
+        ul,
+        ol {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .reveal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 26px;
+        }
+
+        #pageIndex {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            background: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .controls {
+            bottom: 24px !important;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!--
+            data-no: 老師網頁的cubism人物編號(從0開始，網頁上的編號-1)
+            data-positionx: cubism人物水平位移範圍(建議-1 ~ 0.9)
+            data-positiony: cubism人物垂直位移範圍(建議-0.9~0.4)
+            data-scale: cubism人物縮放(建議1~2之間的小數值，最大極限是3)
+            data-motionno: cubism人物指定動作編號(從0開始，請參閱model3.json檔案的ALL MOTION GROUP)
+            -->
+            <section>
+                <h3>18. 圖形繪製</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    <br>&emsp;&emsp;請使用迴圈繪製4種不同的圖形<br>
+                    &emsp;&emsp;圖形請參考範例測資<br><br>
+                    <br>&emsp;&emsp;菱形:兩對角線長度為N且由”*”構成的菱形<br>
+                    <br>&emsp;&emsp;魚形:身體由"*"組成，是一個對角線長度皆為 N
+                    的菱形，尾巴由"-"組成三角形，三角形的最長邊(底邊)在右，頂端朝左，是一個底為(N-2)，高為((N-1)/2)的三角形<br>
+                    <br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出說明</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br>
+                    &emsp;&emsp;輸入說明<br>
+                    &emsp;&emsp;&emsp;&emsp;第一行，輸入整數 C，1 <= C <=4，代表接下來要畫的圖形種類<br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;C=1,為第一種圖形 正三角形 (參考 範例輸出 1)<br><br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;C=2,為第二種圖形 倒三角形 (參考 範例輸出 2)<br><br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;C=3,為第三種圖形 菱形 (參考 範例輸出 9)<br><br>
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;C=4,為第四種圖形 魚形 (參考 範例輸出 13)<br><br>
+                        &emsp;&emsp;&emsp;&emsp;第二行，輸入整數 N ，0 < N < 50，代表這個圖形有N行<br>
+                            &emsp;&emsp;輸出說明<br>
+                            &emsp;&emsp;&emsp;&emsp;若N為奇數且3<=N<=49。根據輸入，畫出對應的圖形<br><br>
+                                &emsp;&emsp;&emsp;&emsp;若N為偶數或者N<=2或N>=50。輸出 error<br>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                1<br>5
+                            </td>
+                            <td>
+                                <img src="img/18/18.png">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2<br>5
+                            </td>
+                            <td>
+                                <img src="img/18/18-2.png">
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                1<br>11
+                            </td>
+                            <td>
+                                <img src="img/18/18-3.png">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2<br>11
+                            </td>
+                            <td>
+                                <img src="img/18/18-4.png">
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                1<br>10
+                            </td>
+                            <td>
+                                error
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2<br>10
+                            </td>
+                            <td>
+                                error
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                3<br>7
+                            </td>
+                            <td>
+                                <img src="img/18/18-5.png">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                3<br>51
+                            </td>
+                            <td>
+                                error
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>輸入輸出範例</h3>
+                <section data-no="6" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left">
+                    <table style="background-color: #fff; width: 50%;">
+                        <tr>
+                            <th>Input</th>
+                            <th>Output</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                4<br>15
+                            </td>
+                            <td>
+                                <img src="img/18/18-6.png">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                4<br>10
+                            </td>
+                            <td>
+                                error
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+
+            <section>
+                <h3>Tips</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    &emsp;&emsp;使用迴圈完成一行的輸出後寫成function<br><br>
+                    &emsp;&emsp;再使用迴圈執行一行的funcution完成圖型的繪製<br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape>
+                                # 畫一行#
+                                def printSharp(n):
+                                    for i in range(n):
+                                        print('#', end='')
+                                
+                                # 畫一行*
+                                def printStar(n):
+                                    for i in range(n):
+                                        print('*', end='')
+                                
+                                # 畫一行空格
+                                def printSpace(n):
+                                    for i in range(n):
+                                        print(' ', end='')
+                                
+                                # 畫一行-
+                                def printLine(n):
+                                    for i in range(n):
+                                        print('-', end='')
+                            </code></pre>
+                    </section>
+                </section>
+            </section>
+            </section>
+
+            <section>
+                <h3>Tips</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    &emsp;&emsp;複雜的圖型要做拆圖的動作<br><br>
+                    <section data-auto-animate>
+                        <img style="width:400px;" src="img/18/18-6.png">
+                        <img style="width:400px;" src="img/18/18-7.png">
+                    </section>
+                </section>
+            </section>
+            </section>
+
+            <section>
+                <h3>解答</h3>
+                <section data-no="8" data-positionx="0.8" data-positiony="0.03" data-scale="1" data-motionno="0"
+                    style="text-align: left"><br><br>
+                    <section data-auto-animate>
+                        <pre><code data-trim data-noescape data-line-numbers="|63-78|1-19|21-27|29-35|37-46|48-61|">
+                        # 畫一行#
+                        def printSharp(n):
+                            for i in range(n):
+                                print('#', end='')
+                        
+                        # 畫一行*
+                        def printStar(n):
+                            for i in range(n):
+                                print('*', end='')
+                        
+                        # 畫一行空格
+                        def printSpace(n):
+                            for i in range(n):
+                                print(' ', end='')
+                        
+                        # 畫一行-
+                        def printLine(n):
+                            for i in range(n):
+                                print('-', end='')
+                        
+                        # 畫三角形
+                        def printTriangle(n):
+                            for i in range(1, n+1):
+                                printSharp(n-i)
+                                printStar(i*2-1)
+                                printSharp(n-i)
+                                print()
+                        
+                        # 畫倒三角形
+                        def printInvertedTriangle(n):
+                            for i in range(n):
+                                printSharp(i)
+                                printStar(n*2 - i*2 - 1)
+                                printSharp(i)
+                                print()
+                        
+                        # 畫菱形
+                        def printDiamond(n):
+                            for i in range(1, n+1, 2):
+                                printSpace(int((n-i)/2))
+                                printStar(i)
+                                print()
+                            for i in range(n-2,0,-2):
+                                printSpace(int((n-i)/2))
+                                printStar(i)
+                                print()
+                        
+                        # 畫魚形
+                        def printFish(n):
+                            for i in range(1, n+1, 2):
+                                printSpace(int((n-i)/2))
+                                printStar(i)
+                                printSpace(n-i)
+                                printLine(i//2)
+                                print()
+                            for i in range(n-2,0,-2):
+                                printSpace(int((n-i)/2))
+                                printStar(i)
+                                printSpace(n-i)
+                                printLine(i//2)
+                                print()
+                        
+                        def main():
+                            choose = input()
+                            n = int(input())
+                            if n % 2 == 0 or n &lt; 3 or n > 49:
+                                print('error')
+                                return
+                            if choose == '1':
+                                printTriangle(n)
+                            elif choose == '2':
+                                printInvertedTriangle(n)
+                            elif choose == '3':
+                                printDiamond(n)
+                            elif choose == '4':
+                                printFish(n)
+                        
+                        main()
+                    </code></pre>
+                    </section>
+                </section>
+            </section>
+        </div>
+    </div>
+    <div id="pageIndex"></div>
+    <!-- reveal.js-->
+    <script src="vendor/reveal/reveal.js"></script>
+    <!--plugin-->
+    <script src="vendor/reveal/plugin/math/math.js"></script>
+    <script src="vendor/reveal/plugin/search/search.js"></script>
+    <script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+
+    <script src="vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="vendor/reveal/plugin/markdown/markdown.js"></script>
+    <script src="vendor/reveal/plugin/highlight/highlight.js"></script>
+    <script src="main-ppt.js"></script>
+</body>
+
+</html>
