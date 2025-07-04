@@ -488,6 +488,131 @@
                 </section>
             </section>
            </section>
+           <section>
+            <h3 >解答(補充註解)</h3>
+            <section
+                data-no="8"
+                data-positionx="0.8" 
+                data-positiony="0.03" 
+                data-scale="1" 
+                data-motionno="0"
+                style="text-align: left"><br><br>
+                <section data-auto-animate>
+                    <pre><code data-trim data-noescape>
+# 將牌轉換成對應的分數
+def transform(k):
+    if k in "JQK":
+        return 0.5  # J、Q、K 都算 0.5 分
+    if k == 'A':
+        return 1    # A 算 1 分
+    return int(k)   # 數字牌直接轉換成整數分數
+
+# 判斷電腦目前的分數是否比所有還沒結束的玩家都小
+def Smaller(computer, member, flag):
+    minimum = 10000  # 初始設一個極大值
+    for i in range(len(member)):
+        if (flag[i] == False):  # 如果該玩家尚未結束
+            minimum = min(minimum, member[i])  # 找出最低的玩家分數
+
+    if (computer <= minimum):  # 若電腦的分數小於等於最小玩家分數
+        return True
+    return False
+
+# 輸出所有玩家與電腦的輸贏結果
+def PrintResult(dollar):
+    computerDollar = 0
+    for i in range(len(dollar)):
+        computerDollar += (dollar[i] * (-1))  # 玩家贏的錢是電腦輸的錢
+
+        # 顯示每位玩家的金錢變化
+        if (dollar[i] >= 0):
+            print("Player%d +%s" % (i + 1, dollar[i]))
+        else:
+            print("Player%d %s" % (i + 1, dollar[i]))
+
+    # 顯示電腦的金錢變化
+    if (computerDollar >= 0):
+        print("Computer +%d" % (computerDollar))
+    else:
+        print("Computer %d" % (computerDollar))
+
+# 檢查是否所有玩家都已經結束（出現「N」或爆牌）
+def AllUserEnd(flag):
+    for i in range(len(flag)):
+        if flag[i] == False:  # 只要有玩家還在進行遊戲
+            return False
+    return True  # 全部玩家都結束
+
+# 主程式流程
+def func():
+    n = int(input())  # 玩家人數
+    computer = 0       # 電腦起始分數
+    member = [0] * (n) # 儲存每位玩家的分數
+    dollar = [int(i) for i in input().split(' ')]  # 每位玩家的押注金額
+    point = [i for i in input().split(' ')]        # 所有人第一張牌，第一個是電腦的牌
+
+    computer = transform(point[0])  # 電腦初始牌轉換成分數
+
+    flag = [False] * (n)  # 紀錄玩家是否已結束（True 表示已結束）
+
+    for i in range(n):
+        member[i] = transform(point[i + 1])  # 將每位玩家初始牌轉換成分數
+
+    cur_user = 0  # 當前進行中的玩家編號
+
+    # 玩家進行遊戲（輪流詢問是否繼續要牌）
+    while (cur_user != n):
+        content = [i for i in input().split(' ')]  # 輸入 "Y 牌" 或 "N"
+        if (content[0] == 'Y'):
+            member[cur_user] += transform(content[1])  # 玩家要牌並加上分數
+
+            if (member[cur_user] >= 10.5):  # 如果大於或等於10.5
+                if (member[cur_user] > 10.5):  # 爆牌（>10.5）
+                    dollar[cur_user] = dollar[cur_user] * (-1)  # 金額變成負數（表示輸錢）
+                flag[cur_user] = True  # 玩家結束
+                cur_user = cur_user + 1
+        elif (content[0] == 'N'):
+            # 玩家選擇不再要牌
+            cur_user = cur_user + 1
+        else:
+            break  # 若輸入格式錯誤則跳出
+
+    # 所有玩家都結束的情況，直接結算
+    if (AllUserEnd(flag)):
+        PrintResult(dollar)
+    else:
+        # 若尚有人未結束，電腦開始補牌
+        computerburst = False  # 電腦是否爆牌的旗標
+
+        while (Smaller(computer, member, flag)):  # 電腦持續補牌直到比未結束玩家還大
+            computer += transform(input())  # 電腦要牌
+            if (computer > 10.5):
+                computerburst = True  # 電腦爆牌
+                break
+
+        if (computerburst):
+            # 電腦爆牌時，未爆牌的玩家全贏
+            for i in range(n):
+                if (flag[i] == False):
+                    dollar[i] = abs(dollar[i])  # 確保金額為正數（贏錢）
+                    flag[i] = True
+        else:
+            # 電腦未爆牌，逐一比較
+            for i in range(n):
+                if (flag[i] == False and computer >= member[i]):
+                    dollar[i] = dollar[i] * (-1)  # 玩家輸錢
+                    flag[i] = False
+
+        PrintResult(dollar)
+
+# 程式進入點
+if __name__ == "__main__":
+    func()
+
+                    </code></pre> 
+                </section>
+            </section>
+           </section>
         </div>
     </div>
     <div id="pageIndex"></div>
